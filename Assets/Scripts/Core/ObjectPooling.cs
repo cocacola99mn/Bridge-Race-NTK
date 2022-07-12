@@ -42,7 +42,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    public GameObject Spawn(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -55,14 +55,17 @@ public class ObjectPooling : Singleton<ObjectPooling>
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        //poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }
 
-    public void RemoveFromPool(string tag)
+    public void Despawn(string tag, GameObject prefab)
     {
-        GameObject objectToRemove = poolDictionary[tag].Dequeue();
-        
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            Debug.Log("Error");
+        }
+        poolDictionary[tag].Enqueue(prefab);
     }
 }
