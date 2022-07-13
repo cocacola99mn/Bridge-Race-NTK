@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridBase : BrickAbstract
+public class GridBase : MonoBehaviour
 {
     public static string BLUE_TAG = "Blue";
     public static string RED_TAG = "Red";

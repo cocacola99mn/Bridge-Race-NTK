@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7403576533743797083}
   - component: {fileID: 3854332298850305469}
+  - component: {fileID: 7217517729026544120}
   m_Layer: 0
   m_Name: BlueBrick
-  m_TagString: Untagged
+  m_TagString: Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,11 +41,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4568731661380197220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.30490243, y: 0.10318184, z: 0.20200434}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.19997442, y: 0.39042968, z: 0.11664778}
+  m_Center: {x: -0.0022602677, y: 0.14362395, z: -0.00860247}
+--- !u!114 &7217517729026544120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568731661380197220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038208805fe11234abede2c158d98c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickColor: {fileID: 11400000, guid: 2cd8abc23d15b8147b149e5d2dcaefee, type: 2}
 --- !u!1 &8046428629343323073
 GameObject:
   m_ObjectHideFlags: 0
