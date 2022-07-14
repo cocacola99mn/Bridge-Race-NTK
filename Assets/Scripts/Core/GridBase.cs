@@ -11,9 +11,11 @@ public class GridBase : MonoBehaviour
     public static string YELLOW_TAG = "Yellow";
 
     public GameObject item;
+    
     public int GridX;
     public int GridZ;
     public float GridSpacingOffset;
+    
     public Vector3 GridOrigin = Vector3.zero;
 
     void Update()

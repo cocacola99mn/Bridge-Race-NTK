@@ -50,7 +50,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
             return null;
         }
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-
+        
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
