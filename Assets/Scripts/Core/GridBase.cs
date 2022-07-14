@@ -16,7 +16,7 @@ public class GridBase : MonoBehaviour
     public float GridSpacingOffset;
     public Vector3 GridOrigin = Vector3.zero;
 
-    void Start()
+    void Update()
     {
         SpawnGrid();
     }

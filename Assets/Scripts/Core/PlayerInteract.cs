@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : Singleton<PlayerInteract>
 {
-    public Queue<GameObject> BrickHolder;
+    public List<GameObject> BrickHolder;
 
     public GameObject Holder;
     Vector3 holderPos;
@@ -13,7 +13,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     {
         holderPos = Holder.transform.localPosition;
         holderPos = Holder.transform.localEulerAngles;
-        BrickHolder = new Queue<GameObject>();
+        BrickHolder = new List<GameObject>();
     }
 
     public void AddBrick(GameObject Brick)
@@ -24,6 +24,6 @@ public class PlayerInteract : Singleton<PlayerInteract>
         Brick.transform.localPosition = holderPos;
         Brick.transform.localEulerAngles = holderPos;
 
-        BrickHolder.Enqueue(Brick);
+        BrickHolder.Add(Brick);
     }
 }
