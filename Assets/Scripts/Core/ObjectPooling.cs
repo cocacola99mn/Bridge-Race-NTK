@@ -53,7 +53,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        //poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }
@@ -64,7 +64,9 @@ public class ObjectPooling : Singleton<ObjectPooling>
         {
             Debug.Log("Error");
         }
-
+        
         prefab.SetActive(false);
+        
+        poolDictionary[tag].Enqueue(prefab);
     }
 }

@@ -24,8 +24,8 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
     public void AddBrick(GameObject Brick)
     {
-        Brick.transform.SetParent(Holder.transform);
-
+        Brick.transform.parent = Holder.transform;
+        
         holderPos.y += 0.07f;
         Brick.transform.localPosition = holderPos;
         Brick.transform.localEulerAngles = holderPos;
@@ -36,9 +36,13 @@ public class PlayerInteract : Singleton<PlayerInteract>
     public void DropBrick(string tag)
     {
         GameObject lastElement = BrickHolder[BrickHolder.Count -1];
-        
+
+        BrickHolder[BrickHolder.Count - 1].transform.parent = null;
+
         objPool.Despawn(tag, lastElement);
-        
+
         BrickHolder.Remove(lastElement);
+
+        holderPos.y -= 0.07f;
     }
 }

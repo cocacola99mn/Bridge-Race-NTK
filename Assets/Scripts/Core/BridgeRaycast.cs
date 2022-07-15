@@ -20,7 +20,6 @@ public class BridgeRaycast : MonoBehaviour
 
     void Start()
     {
-        //ShootDirection = transform.TransformDirection(Quaternion.Euler(-10f, 0f, 0f) * Vector3.down * range);
         ShootDirection = transform.TransformDirection(Vector3.down * range);
         Interact = PlayerInteract.Ins;
     }

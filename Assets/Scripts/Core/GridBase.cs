@@ -3,35 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridBase : MonoBehaviour
+public class GridBase : Singleton<GridBase>
 {
-
-    public GameObject item;
-    
     public int GridX;
     public int GridZ;
+
+    GameObject[,] Grid;
+    
     public float GridSpacingOffset;
     
     public Vector3 GridOrigin = Vector3.zero;
 
-    void Update()
+    void Start()
     {
-        SpawnGrid();
+        Grid = new GameObject[GridX, GridZ];
+        
+        SpawnGrid(GameConstant.BLUE_TAG);
     }
 
-    private void SpawnGrid()
+    private void SpawnGrid(string tag)
     {
         for(int x = 0; x < GridX; x++)
         {
             for(int z = 0; z < GridZ; z++)
             {
                 Vector3 spawnPostion = new Vector3(x * GridSpacingOffset, 0, z * GridSpacingOffset) + GridOrigin;
-                PickandSpawn(spawnPostion,Quaternion.identity, ObjectPooling.Ins);
+                if (ObjectPooling.Ins.poolDictionary[tag].Count > 0)
+                {
+                    Grid[x, z] = ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);                  
+                }
             }
         }
     }
 
-    private void PickandSpawn(Vector3 spawnPostion, Quaternion spawnRotation,ObjectPooling objPool)
+    /*private void PickandSpawn(Vector3 spawnPostion, Quaternion spawnRotation,ObjectPooling objPool)
     {
         int RandomizeBrick = UnityEngine.Random.Range(1, 5);
         
@@ -91,5 +96,5 @@ public class GridBase : MonoBehaviour
             else
                 objPool.Spawn(GameConstant.YELLOW_TAG, spawnPostion, Quaternion.identity);
         }
-    }
+    }*/
 }
