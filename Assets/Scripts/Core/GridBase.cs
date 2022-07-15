@@ -12,13 +12,16 @@ public class GridBase : Singleton<GridBase>
     
     public float GridSpacingOffset;
     
-    public Vector3 GridOrigin = Vector3.zero;
+    public Vector3 GridOrigin;
 
     void Start()
     {
         Grid = new GameObject[GridX, GridZ];
-        
+
+        GridOrigin = Vector3.zero;
+
         SpawnGrid(GameConstant.BLUE_TAG);
+        
     }
 
     private void SpawnGrid(string tag)
@@ -30,7 +33,7 @@ public class GridBase : Singleton<GridBase>
                 Vector3 spawnPostion = new Vector3(x * GridSpacingOffset, 0, z * GridSpacingOffset) + GridOrigin;
                 if (ObjectPooling.Ins.poolDictionary[tag].Count > 0)
                 {
-                    Grid[x, z] = ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);                  
+                    Grid[x,z] = ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);                 
                 }
             }
         }
