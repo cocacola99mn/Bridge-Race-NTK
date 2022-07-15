@@ -5,13 +5,19 @@ using UnityEngine;
 public class BridgeRaycast : MonoBehaviour
 {
     private float range = 10f;
-    
+
+    [SerializeField]
+    private Material BlueMaterial;
+
     [SerializeField]
     private LayerMask bridgeStairLayer;
     
     Vector3 ShootDirection,RayPosition;
 
     PlayerInteract Interact;
+
+    public Brick brickColor;
+
     void Start()
     {
         //ShootDirection = transform.TransformDirection(Quaternion.Euler(-10f, 0f, 0f) * Vector3.down * range);
@@ -28,15 +34,38 @@ public class BridgeRaycast : MonoBehaviour
     public void ShootRay()
     {        
         Ray ray = new Ray(RayPosition, ShootDirection);
+        RaycastHit hit;
         Debug.DrawRay(RayPosition,ShootDirection);
         
-        if(Physics.Raycast(ray,out RaycastHit hit, range, bridgeStairLayer))
+        if(Physics.Raycast(ray,out hit, range, bridgeStairLayer))
         {
-            if (Interact.BrickHolder.Count > 0)
+            BuildBridge(hit);
+        }        
+    }
+
+    public void BuildBridge(RaycastHit hit) {
+        if (Interact.BrickHolder.Count > 0)
+        {
+            var select = hit.transform;
+            if(!hit.transform.gameObject.CompareTag(GameConstant.LASTHITOBJECT_TAG))
             {
-                Interact.DropBrick();
+                hit.transform.gameObject.tag = GameConstant.LASTHITOBJECT_TAG;
+                try
+                {
+                    var selectChildRenderer = select.GetComponentInChildren<Renderer>();
+                    if (selectChildRenderer != null)
+                    {
+                        selectChildRenderer.material = BlueMaterial;
+                        selectChildRenderer.enabled = true;
+                        Interact.DropBrick(GameConstant.BLUE_TAG);
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Can't find component");
+                }
             }
+            
         }
-        
     }
 }

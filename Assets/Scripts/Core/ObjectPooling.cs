@@ -37,9 +37,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
             }
             
             poolDictionary.Add(pool.tag, objectPool);
-        }
-
-        
+        }       
     }
 
     public GameObject Spawn(string tag, Vector3 position, Quaternion rotation)
@@ -55,7 +53,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
-        //poolDictionary[tag].Enqueue(objectToSpawn);
+        poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }
@@ -66,6 +64,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
         {
             Debug.Log("Error");
         }
-        poolDictionary[tag].Enqueue(prefab);
+
+        prefab.SetActive(false);
     }
 }

@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class PlayerInteract : Singleton<PlayerInteract>
 {
-    public static string STAIR_TAG = "Stair";
-
     public List<GameObject> BrickHolder;
 
     public GameObject Holder;
 
     ObjectPooling objPool;
 
-    public bool Walkable = false;
-
-    Vector3 holderPos,StairPos;
+    Vector3 holderPos;
 
     private void Start()
     {
@@ -37,9 +33,12 @@ public class PlayerInteract : Singleton<PlayerInteract>
         BrickHolder.Add(Brick);
     }
 
-    public void DropBrick()
+    public void DropBrick(string tag)
     {
-        Debug.Log("Drop");
-        Walkable = true;
+        GameObject lastElement = BrickHolder[BrickHolder.Count -1];
+        
+        objPool.Despawn(tag, lastElement);
+        
+        BrickHolder.Remove(lastElement);
     }
 }

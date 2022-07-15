@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class GridBase : MonoBehaviour
 {
-    public static string BLUE_TAG = "Blue";
-    public static string RED_TAG = "Red";
-    public static string GREEN_TAG = "Green";
-    public static string YELLOW_TAG = "Yellow";
 
     public GameObject item;
     
@@ -41,59 +37,59 @@ public class GridBase : MonoBehaviour
         
         if(RandomizeBrick == 1)
         {
-            if (objPool.poolDictionary[BLUE_TAG].Count == 0)
+            if (objPool.poolDictionary[GameConstant.BLUE_TAG].Count == 0)
                 RandomizeBrick++;
             else
-                objPool.Spawn(BLUE_TAG, spawnPostion, Quaternion.identity);
+                objPool.Spawn(GameConstant.BLUE_TAG, spawnPostion, Quaternion.identity);
         }
 
         if (RandomizeBrick == 2)
         {
-            if (objPool.poolDictionary[GREEN_TAG].Count == 0)
+            if (objPool.poolDictionary[GameConstant.GREEN_TAG].Count == 0)
                 RandomizeBrick++;
             else
-                objPool.Spawn(GREEN_TAG, spawnPostion, Quaternion.identity);
+                objPool.Spawn(GameConstant.GREEN_TAG, spawnPostion, Quaternion.identity);
         }
 
         if (RandomizeBrick == 3)
         {
-            if (objPool.poolDictionary[RED_TAG].Count == 0)
+            if (objPool.poolDictionary[GameConstant.RED_TAG].Count == 0)
                 RandomizeBrick++;
             else
-                objPool.Spawn(RED_TAG, spawnPostion, Quaternion.identity);
+                objPool.Spawn(GameConstant.RED_TAG, spawnPostion, Quaternion.identity);
         }
 
         if (RandomizeBrick == 4)
         {
-            if (objPool.poolDictionary[YELLOW_TAG].Count == 0)
+            if (objPool.poolDictionary[GameConstant.YELLOW_TAG].Count == 0)
             {
                 RandomizeBrick = 1;
                 if (RandomizeBrick == 1)
                 {
-                    if (objPool.poolDictionary[BLUE_TAG].Count == 0)
+                    if (objPool.poolDictionary[GameConstant.BLUE_TAG].Count == 0)
                         RandomizeBrick++;
                     else
-                        objPool.Spawn(BLUE_TAG, spawnPostion, Quaternion.identity);
+                        objPool.Spawn(GameConstant.BLUE_TAG, spawnPostion, Quaternion.identity);
                 }
 
                 if (RandomizeBrick == 2)
                 {
-                    if (objPool.poolDictionary[GREEN_TAG].Count == 0)
+                    if (objPool.poolDictionary[GameConstant.GREEN_TAG].Count == 0)
                         RandomizeBrick++;
                     else
-                        objPool.Spawn(GREEN_TAG, spawnPostion, Quaternion.identity);
+                        objPool.Spawn(GameConstant.GREEN_TAG, spawnPostion, Quaternion.identity);
                 }
 
                 if (RandomizeBrick == 3)
                 {
-                    if (objPool.poolDictionary[RED_TAG].Count == 0)
+                    if (objPool.poolDictionary[GameConstant.RED_TAG].Count == 0)
                         RandomizeBrick++;
                     else
-                        objPool.Spawn(RED_TAG, spawnPostion, Quaternion.identity);
+                        objPool.Spawn(GameConstant.RED_TAG, spawnPostion, Quaternion.identity);
                 }
             }
             else
-                objPool.Spawn(YELLOW_TAG, spawnPostion, Quaternion.identity);
+                objPool.Spawn(GameConstant.YELLOW_TAG, spawnPostion, Quaternion.identity);
         }
     }
 }

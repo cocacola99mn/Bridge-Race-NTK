@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
-    public static string SPEED_PARA = "Speed";
 
     public float PlayerSpeed;
 
@@ -55,11 +54,11 @@ public class Player : MonoBehaviour
 
     private void RunAnim()
     {
-        MovementAnim.SetFloat(SPEED_PARA, 1);
+        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
     }
 
     private void Idle()
     {
-        MovementAnim.SetFloat(SPEED_PARA, 0.1f);
+        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
     }
 }
