@@ -4,13 +4,16 @@ using UnityEngine;
 
 public static class GameConstant
 {
-    public static readonly string BLUE_TAG = "Blue";
-    public static readonly string RED_TAG = "Red";
-    public static readonly string GREEN_TAG = "Green";
-    public static readonly string YELLOW_TAG = "Yellow";
+    public const string HORIZONTAL_AXIS = "Horizontal";
+    public const string VERTICAL_AXIS = "Vertical";
 
-    public static readonly string STAIR_TAG = "Stair";
-    public static readonly string SPEED_PARA = "Speed";
-    public static readonly string PLAYER_TAG = "Player";
-    public static readonly string LASTHITOBJECT_TAG = "LastHitObject";
+    public const string BLUE_TAG = "Blue";
+    public const string RED_TAG = "Red";
+    public const string GREEN_TAG = "Green";
+    public const string YELLOW_TAG = "Yellow";
+
+    public const string STAIR_TAG = "Stair";
+    public const string SPEED_PARA = "Speed";
+    public const string PLAYER_TAG = "Player";
+    public const string LASTHITOBJECT_TAG = "LastHitObject";
 }

@@ -8,6 +8,8 @@ public class GridBase : Singleton<GridBase>
     public int GridX;
     public int GridZ;
 
+    private int RandomizeBrick;
+
     GameObject[,] Grid;
     
     public float GridSpacingOffset;
@@ -36,36 +38,21 @@ public class GridBase : Singleton<GridBase>
 
     private void PickandSpawn(Vector3 spawnPostion, Quaternion spawnRotation,ObjectPooling objPool)
     {
-        int RandomizeBrick = UnityEngine.Random.Range(1, 5);
+        RandomizeBrick = UnityEngine.Random.Range(1, 5);
 
-        randomizeBrick(RandomizeBrick, objPool, spawnPostion);
+        randomizeBrick(objPool, spawnPostion);
     }
 
-    private void randomizeBrick(int RandomizeBrick, ObjectPooling objPool, Vector3 spawnPostion)
+    private void randomizeBrick(ObjectPooling objPool, Vector3 spawnPostion)
     {
         if (RandomizeBrick == 1)
-        {
-            if (objPool.poolDictionary[GameConstant.BLUE_TAG].Count == 0)
-                RandomizeBrick++;
-            else
-                objPool.Spawn(GameConstant.BLUE_TAG, spawnPostion, Quaternion.identity);
-        }
+            randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
 
         if (RandomizeBrick == 2)
-        {
-            if (objPool.poolDictionary[GameConstant.GREEN_TAG].Count == 0)
-                RandomizeBrick++;
-            else
-                objPool.Spawn(GameConstant.GREEN_TAG, spawnPostion, Quaternion.identity);
-        }
+            randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
 
         if (RandomizeBrick == 3)
-        {
-            if (objPool.poolDictionary[GameConstant.RED_TAG].Count == 0)
-                RandomizeBrick++;
-            else
-                objPool.Spawn(GameConstant.RED_TAG, spawnPostion, Quaternion.identity);
-        }
+            randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
 
         if (RandomizeBrick == 4)
         {
@@ -73,31 +60,24 @@ public class GridBase : Singleton<GridBase>
             {
                 RandomizeBrick = 1;
                 if (RandomizeBrick == 1)
-                {
-                    if (objPool.poolDictionary[GameConstant.BLUE_TAG].Count == 0)
-                        RandomizeBrick++;
-                    else
-                        objPool.Spawn(GameConstant.BLUE_TAG, spawnPostion, Quaternion.identity);
-                }
+                    randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
 
                 if (RandomizeBrick == 2)
-                {
-                    if (objPool.poolDictionary[GameConstant.GREEN_TAG].Count == 0)
-                        RandomizeBrick++;
-                    else
-                        objPool.Spawn(GameConstant.GREEN_TAG, spawnPostion, Quaternion.identity);
-                }
+                    randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
 
                 if (RandomizeBrick == 3)
-                {
-                    if (objPool.poolDictionary[GameConstant.RED_TAG].Count == 0)
-                        RandomizeBrick++;
-                    else
-                        objPool.Spawn(GameConstant.RED_TAG, spawnPostion, Quaternion.identity);
-                }
+                    randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
             }
             else
                 objPool.Spawn(GameConstant.YELLOW_TAG, spawnPostion, Quaternion.identity);
         }
+    }
+
+    private void randomSpawnCondition(string tag,Vector3 spawnPostion)
+    {
+        if (ObjectPooling.Ins.poolDictionary[tag].Count == 0)
+            RandomizeBrick++;
+        else
+            ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);
     }
 }

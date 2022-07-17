@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   color: Red
-  brickPrefab: {fileID: 9213849994443207103, guid: d3a770e237bcf7b4eabd1ee425809e52, type: 3}
+  item: Brick

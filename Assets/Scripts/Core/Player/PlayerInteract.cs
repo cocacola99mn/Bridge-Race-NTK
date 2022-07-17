@@ -26,7 +26,6 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
     public void AddBrick(GameObject Brick)
     {
-        Debug.Log(Brick.transform.localPosition);
         GridBrickPos.Add(Brick.transform.localPosition);
 
         Brick.transform.parent = Holder.transform;

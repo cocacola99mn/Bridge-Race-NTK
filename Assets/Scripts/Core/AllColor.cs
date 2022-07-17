@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="Brick", menuName ="BrickColors")]
-public class Brick : ScriptableObject
+public class AllColor : ScriptableObject
 {
     public string color;
 }

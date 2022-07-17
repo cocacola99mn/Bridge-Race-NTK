@@ -2,35 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
-    [SerializeField] CharacterController controller;
+    [SerializeField] 
+    CharacterController controller;
 
     public float PlayerSpeed;
 
     public float turnTime = 0.1f;
-    float turnVelocity;
+    
+    float turnVelocity, horizontal, vertical;
+
+    Vector3 direction;
 
     private Animator MovementAnim;
+
+    public bool MoveForwardRestrict;
 
     private void Start()
     {
         MovementAnim = GetComponent<Animator>();
+
+        MoveForwardRestrict = false;
     }
 
     void Update()
     {
-        PlayerMovement();
+            PlayerMovement();
     }
     
     public void PlayerMovement()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        PlayerInput();
         
-        if (direction.Equals(Vector3.zero))
+        if ((direction - Vector3.zero).sqrMagnitude < 0.001f)
         {
             Idle();
         }
@@ -42,6 +47,31 @@ public class Player : MonoBehaviour
         {
             PlayerRotation(direction);
             controller.Move(direction * PlayerSpeed * Time.deltaTime);
+        }
+    }
+
+    public void PlayerInput()
+    {
+        direction = Vector3.zero;
+        
+        if (Input.GetKey(KeyCode.W) && MoveForwardRestrict == false)
+        {
+            direction = new Vector3(0, 0, 1).normalized;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            direction = new Vector3(0, 0, -1).normalized;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            direction = new Vector3(-1, 0, 0).normalized;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            direction = new Vector3(1, 0, 0).normalized;
         }
     }
 
