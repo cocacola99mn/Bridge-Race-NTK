@@ -11,6 +11,7 @@ public class GridBase : Singleton<GridBase>
     private int RandomizeBrick;
 
     GameObject[,] Grid;
+    GameObject brick;
     
     public float GridSpacingOffset;
     
@@ -20,8 +21,7 @@ public class GridBase : Singleton<GridBase>
     {
         Grid = new GameObject[GridX, GridZ];
 
-        SpawnGrid(GameConstant.BLUE_TAG);
-        
+        SpawnGrid(GameConstant.BLUE_TAG);        
     }
 
     private void SpawnGrid(string tag)
@@ -31,28 +31,29 @@ public class GridBase : Singleton<GridBase>
             for(int z = 0; z < GridZ; z++)
             {
                 Vector3 spawnPostion = new Vector3(x * GridSpacingOffset, 0, z * GridSpacingOffset) + GridOrigin;
-                PickandSpawn(spawnPostion,Quaternion.identity, ObjectPooling.Ins);                 
+                Grid[x,z] = PickandSpawn(spawnPostion, Quaternion.identity, ObjectPooling.Ins);
             }
         }
     }
 
-    private void PickandSpawn(Vector3 spawnPostion, Quaternion spawnRotation,ObjectPooling objPool)
+    private GameObject PickandSpawn(Vector3 spawnPostion, Quaternion spawnRotation,ObjectPooling objPool)
     {
         RandomizeBrick = UnityEngine.Random.Range(1, 5);
 
-        randomizeBrick(objPool, spawnPostion);
+        brick = randomizeBrick (objPool, spawnPostion);
+        return brick;
     }
 
-    private void randomizeBrick(ObjectPooling objPool, Vector3 spawnPostion)
+    private GameObject randomizeBrick(ObjectPooling objPool, Vector3 spawnPostion)
     {
         if (RandomizeBrick == 1)
-            randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
+            brick = randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
 
         if (RandomizeBrick == 2)
-            randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
+            brick = randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
 
         if (RandomizeBrick == 3)
-            randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
+            brick = randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
 
         if (RandomizeBrick == 4)
         {
@@ -60,24 +61,26 @@ public class GridBase : Singleton<GridBase>
             {
                 RandomizeBrick = 1;
                 if (RandomizeBrick == 1)
-                    randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
+                    brick = randomSpawnCondition(GameConstant.BLUE_TAG, spawnPostion);
 
                 if (RandomizeBrick == 2)
-                    randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
+                    brick = randomSpawnCondition(GameConstant.GREEN_TAG, spawnPostion);
 
                 if (RandomizeBrick == 3)
-                    randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
+                    brick = randomSpawnCondition(GameConstant.RED_TAG, spawnPostion);
             }
             else
-                objPool.Spawn(GameConstant.YELLOW_TAG, spawnPostion, Quaternion.identity);
+                brick = objPool.Spawn(GameConstant.YELLOW_TAG, spawnPostion, Quaternion.identity);
         }
+        return brick;
     }
 
-    private void randomSpawnCondition(string tag,Vector3 spawnPostion)
+    private GameObject randomSpawnCondition(string tag,Vector3 spawnPostion)
     {
         if (ObjectPooling.Ins.poolDictionary[tag].Count == 0)
             RandomizeBrick++;
         else
-            ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);
+            brick = ObjectPooling.Ins.Spawn(tag, spawnPostion, Quaternion.identity);
+        return brick;
     }
 }
