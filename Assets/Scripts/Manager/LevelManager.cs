@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { FirstState, SecondState, ThirdState, Win}
+public enum LevelState { FirstState, SecondState, ThirdState, Win}
 public class LevelManager : Singleton<LevelManager>
 {
-    private GameState gameState;
+    private LevelState gameState;
     
-    public void ChangeGameState(GameState gameState)
+    public void ChangeGameState(LevelState gameState)
     {
         this.gameState = gameState;
 
         switch (gameState)
         {
-            case GameState.FirstState:
+            case LevelState.FirstState:
                 Debug.Log("1");
                 break;
-            case GameState.SecondState:
+            case LevelState.SecondState:
                 Debug.Log("2");
                 break;
-            case GameState.ThirdState:
+            case LevelState.ThirdState:
                 Debug.Log("3");
                 break;
-            case GameState.Win:
+            case LevelState.Win:
                 Debug.Log("4");
                 break;
             default:
@@ -31,8 +31,11 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-    public bool IsState(GameState gameState)
+    public bool IsState(LevelState gameState)
     {
-        return this.gameState == gameState;
+        if (this.gameState == gameState)
+            return true;
+        else
+            return false;
     }
 }

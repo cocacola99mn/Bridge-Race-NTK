@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateChanger : MonoBehaviour
 {
-    public GameState gameState;
+    public LevelState gameState;
 
     private void OnTriggerEnter(Collider other)
     {

@@ -95,7 +95,7 @@ public class BridgeRaycast : MonoBehaviour
             {
                 playerIns.MoveForwardRestrict = false;
             }
-            else if (hit.distance < 0.4)
+            else if (hit.distance < 0.42)
             {
                 switch (player.tag)
                 {

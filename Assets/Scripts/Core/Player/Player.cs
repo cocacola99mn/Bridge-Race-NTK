@@ -36,12 +36,9 @@ public class Player : Singleton<Player>
         PlayerInput();
         
         if ((direction - Vector3.zero).sqrMagnitude < 0.001f)
-        {
             Idle();
-        }
-        else {
+        else 
             RunAnim();
-        }
                
         if (direction.magnitude >= 0.1f)
         {
@@ -55,24 +52,16 @@ public class Player : Singleton<Player>
         direction = Vector3.zero;
         
         if (Input.GetKey(KeyCode.W) && MoveForwardRestrict == false)
-        {
             direction = new Vector3(0, 0, 1).normalized;
-        }
 
         if (Input.GetKey(KeyCode.S))
-        {
             direction = new Vector3(0, 0, -1).normalized;
-        }
 
         if (Input.GetKey(KeyCode.A))
-        {
             direction = new Vector3(-1, 0, 0).normalized;
-        }
 
         if (Input.GetKey(KeyCode.D))
-        {
             direction = new Vector3(1, 0, 0).normalized;
-        }
     }
 
     public void PlayerRotation(Vector3 direction)
