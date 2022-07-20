@@ -24,9 +24,9 @@ public class BridgeRaycast : MonoBehaviour
 
     void Start()
     {
-        DropBrickDirection = transform.TransformDirection(Vector3.down * range);
-        MovementRestrictDirection = transform.TransformDirection(Vector3.forward * range);
-
+        DropBrickDirection =  Quaternion.Euler(-60,0,0) * Vector3.down * range;
+        MovementRestrictDirection = Vector3.forward * range;
+        
         Interact = PlayerInteract.Ins;
         playerIns = Player.Ins;
     }
