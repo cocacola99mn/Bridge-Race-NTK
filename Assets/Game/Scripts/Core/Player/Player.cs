@@ -10,7 +10,7 @@ public class Player : Singleton<Player>
     public float PlayerSpeed;
 
     public float turnTime = 0.1f;
-    
+
     float turnVelocity, horizontal, vertical;
 
     Vector3 direction;
@@ -33,8 +33,10 @@ public class Player : Singleton<Player>
     
     public void PlayerMovement()
     {
-        PlayerInput();
-        
+        KeyboardInput();
+
+        JoyStickInput();
+
         if ((direction - Vector3.zero).sqrMagnitude < 0.001f)
             Idle();
         else 
@@ -47,21 +49,31 @@ public class Player : Singleton<Player>
         }
     }
 
-    public void PlayerInput()
+    public void JoyStickInput()
     {
-        direction = Vector3.zero;
+        horizontal = JoystickInput.Ins.inputHorizontal();
+        vertical = JoystickInput.Ins.inputVertical();
         
-        if (Input.GetKey(KeyCode.W) && MoveForwardRestrict == false)
-            direction = new Vector3(0, 0, 1).normalized;
+        direction = new Vector3(horizontal, 0, vertical).normalized;
+        
+        if(vertical > 0 && MoveForwardRestrict == true)
+        {
+            direction = Vector3.zero;
+        }
 
-        if (Input.GetKey(KeyCode.S))
-            direction = new Vector3(0, 0, -1).normalized;
+    }
 
-        if (Input.GetKey(KeyCode.A))
-            direction = new Vector3(-1, 0, 0).normalized;
+    public void KeyboardInput()
+    {
+        horizontal = Input.GetAxis(GameConstant.HORIZONTAL_AXIS);
+        vertical = Input.GetAxis(GameConstant.VERTICAL_AXIS);
 
-        if (Input.GetKey(KeyCode.D))
-            direction = new Vector3(1, 0, 0).normalized;
+        direction = new Vector3(horizontal, 0, vertical).normalized;
+
+        if (vertical > 0 && MoveForwardRestrict == true)
+        {
+            direction = Vector3.zero;
+        }
     }
 
     public void PlayerRotation(Vector3 direction)
