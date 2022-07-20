@@ -19,6 +19,9 @@ public class ObjectPooling : Singleton<ObjectPooling>
         }
     }
 
+    private int Counter;
+
+    public Dictionary<string, int> SpawnedCounter;
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     void Start()
@@ -37,7 +40,12 @@ public class ObjectPooling : Singleton<ObjectPooling>
             }
             
             poolDictionary.Add(pool.tag, objectPool);
-        }       
+        }
+        SpawnedCounter = new Dictionary<string, int>();
+        SpawnedCounter.Add(GameConstant.BLUE_TAG, 0);
+        SpawnedCounter.Add(GameConstant.RED_TAG, 0);
+        SpawnedCounter.Add(GameConstant.GREEN_TAG, 0);
+        SpawnedCounter.Add(GameConstant.YELLOW_TAG, 0);
     }
 
     public GameObject Spawn(string tag, Vector3 position, Quaternion rotation)
@@ -48,6 +56,8 @@ public class ObjectPooling : Singleton<ObjectPooling>
             return null;
         }
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+
+        SpawnedCounterControl(tag, 1);
         
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
@@ -66,5 +76,14 @@ public class ObjectPooling : Singleton<ObjectPooling>
         prefab.SetActive(false);
         
         poolDictionary[tag].Enqueue(prefab);
+
+        SpawnedCounterControl(tag, -1);
+    }
+
+    public void SpawnedCounterControl(string tag, int num)
+    {
+        Counter = SpawnedCounter[tag];
+        Counter += num;
+        SpawnedCounter[tag] = Counter;
     }
 }
