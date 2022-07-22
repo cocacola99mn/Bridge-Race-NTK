@@ -15,7 +15,7 @@ public class Player : Singleton<Player>
 
     protected Vector3 direction;
 
-    private Animator MovementAnim;
+    public Animator MovementAnim;
 
     public bool MoveForwardRestrict;
 
@@ -83,12 +83,12 @@ public class Player : Singleton<Player>
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    protected void RunAnim()
+    public void RunAnim()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
     }
 
-    protected void Idle()
+    public void Idle()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
     }

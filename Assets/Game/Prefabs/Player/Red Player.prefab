@@ -1589,9 +1589,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8697852769045676100}
-  - component: {fileID: 9168839007626876771}
   - component: {fileID: 5853066010523522250}
   - component: {fileID: 227520481699570545}
+  - component: {fileID: 1714605453}
   m_Layer: 0
   m_Name: Red Player
   m_TagString: Red
@@ -1616,24 +1616,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &9168839007626876771
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358447459834125054}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.4
-  m_Radius: 0.028
-  m_SlopeLimit: 45
-  m_StepOffset: 0.2
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &5853066010523522250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1661,13 +1643,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c348d6f6e69e834e91e69d2690da913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  PlayerSpeed: 0
-  turnTime: 0.1
-  MoveForwardRestrict: 0
-  AIBody: {fileID: 0}
-  targetNum: 0
-  target: {x: 0, y: 0, z: 0}
+  AIBody: {fileID: 8358447459834125054}
+  currentPoint: 0
+  targetPoint: {x: 0, y: 0, z: 0}
+  AISpeed: 1
+  TPRadius: 0
+  turnVelocity: 0
+  turnTime: 0
+--- !u!95 &1714605453
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358447459834125054}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6441cf373afba4b48885048787eef075, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8681364580475854359
 GameObject:
   m_ObjectHideFlags: 0

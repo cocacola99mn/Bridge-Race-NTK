@@ -4324,17 +4324,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 227520481699570545, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-      propertyPath: AIBody
-      value: 
-      objectReference: {fileID: 1714605451}
-    - target: {fileID: 227520481699570545, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
       propertyPath: AISpeed
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 227520481699570545, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 1714605453}
     - target: {fileID: 8358447459834125054, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
       propertyPath: m_Name
       value: Red Player
@@ -17253,16 +17245,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9b52fcf43488b94da0469a6561408de, type: 3}
---- !u!1 &1714605451 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8358447459834125054, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-  m_PrefabInstance: {fileID: 478756514}
-  m_PrefabAsset: {fileID: 0}
---- !u!143 &1714605453 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 9168839007626876771, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-  m_PrefabInstance: {fileID: 478756514}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1750687267
 PrefabInstance:
   m_ObjectHideFlags: 0
