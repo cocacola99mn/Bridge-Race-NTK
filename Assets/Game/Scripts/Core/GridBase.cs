@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridBase : Singleton<GridBase>
+public class GridBase : MonoBehaviour
 {
     public int GridX;
     public int GridZ;
@@ -11,8 +11,6 @@ public class GridBase : Singleton<GridBase>
     private int RandomizeBrick;
 
     bool isSpawnedState2, isSpawnedState3;
-
-    Vector3[,] Grid;
     
     public float GridSpacingOffset;
     
@@ -22,9 +20,7 @@ public class GridBase : Singleton<GridBase>
     {
         isSpawnedState2 = isSpawnedState3 = false;
 
-        Grid = new Vector3 [GridX, GridZ];
-
-        SpawnGrid(30);        
+        SpawnGrid(30);
     }
 
     private void Update()
@@ -56,7 +52,6 @@ public class GridBase : Singleton<GridBase>
             {
                 Vector3 spawnPosition = new Vector3(x * GridSpacingOffset, 0, z * GridSpacingOffset) + GridOrigin;
                 PickandSpawn(spawnPosition, Quaternion.identity, ObjectPooling.Ins,limit);
-                Grid[x, z] = spawnPosition;
             }
         }
     }
@@ -117,6 +112,11 @@ public class GridBase : Singleton<GridBase>
         if (ObjectPooling.Ins.SpawnedCounter[tag] == limit)
             RandomizeBrick++;
         else
+        {
             ObjectPooling.Ins.Spawn(tag, spawnPosition, Quaternion.identity);
+
+            AITargetPoint.Ins.getTargetPointByColor(tag, spawnPosition);
+        }
+            
     }
 }

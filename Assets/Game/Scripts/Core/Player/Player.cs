@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Singleton<Player>
 {
     [SerializeField] 
-    CharacterController controller;
+    protected CharacterController controller;
 
     public float PlayerSpeed;
 
@@ -13,7 +13,7 @@ public class Player : Singleton<Player>
 
     float turnVelocity, horizontal, vertical;
 
-    Vector3 direction;
+    protected Vector3 direction;
 
     private Animator MovementAnim;
 
@@ -26,9 +26,9 @@ public class Player : Singleton<Player>
         MoveForwardRestrict = false;
     }
 
-    void Update()
+    private void Update()
     {
-            PlayerMovement();
+        PlayerMovement();
     }
     
     public void PlayerMovement()
@@ -83,12 +83,12 @@ public class Player : Singleton<Player>
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    private void RunAnim()
+    protected void RunAnim()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
     }
 
-    private void Idle()
+    protected void Idle()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
     }

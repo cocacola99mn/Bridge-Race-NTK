@@ -41,6 +41,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
             
             poolDictionary.Add(pool.tag, objectPool);
         }
+        
         SpawnedCounter = new Dictionary<string, int>();
         SpawnedCounter.Add(GameConstant.BLUE_TAG, 0);
         SpawnedCounter.Add(GameConstant.RED_TAG, 0);
