@@ -24,7 +24,7 @@ public class BridgeRaycast : MonoBehaviour
 
     void Start()
     {
-        DropBrickDirection =  Quaternion.Euler(-60,0,0) * Vector3.down * range;
+        DropBrickDirection =  Quaternion.Euler(-50,0,0) * Vector3.down * range;
         MovementRestrictDirection = Vector3.forward * range;
         
         Interact = PlayerInteract.Ins;
@@ -129,7 +129,7 @@ public class BridgeRaycast : MonoBehaviour
 
     public void checkStairTag(string tag, RaycastHit hit)
     {
-        if (hit.collider.CompareTag(tag))
+        if (hit.collider.CompareTag(tag) == true)
             playerIns.MoveForwardRestrict = false;
         else
             playerIns.MoveForwardRestrict = true;
