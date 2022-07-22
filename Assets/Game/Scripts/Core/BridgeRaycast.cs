@@ -12,7 +12,7 @@ public class BridgeRaycast : MonoBehaviour
     Transform select;
 
     [SerializeField]
-    private Material BlueMaterial;
+    private Material BrickMaterial;
 
     [SerializeField]
     private LayerMask bridgeStairLayer;
@@ -77,7 +77,7 @@ public class BridgeRaycast : MonoBehaviour
         selectChildRenderer = select.GetComponentInChildren<Renderer>();
         if (selectChildRenderer != null)
         {
-            selectChildRenderer.material = BlueMaterial;
+            selectChildRenderer.material = BrickMaterial;
             selectChildRenderer.enabled = true;
             Interact.DropBrick(GameConstant.BLUE_TAG);
         }

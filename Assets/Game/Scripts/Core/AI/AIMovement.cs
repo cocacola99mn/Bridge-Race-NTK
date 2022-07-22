@@ -37,9 +37,8 @@ public class AIMovement : MonoBehaviour
         {
             if (Vector3.Distance(target[currentPoint], transform.position) < TPRadius)
             {
-                currentPoint = Random.Range(0, target.Count);
+                currentPoint = Random.Range(0, 29);
             }
-            
             AIRotation(target[currentPoint] - transform.position);
             transform.position = Vector3.MoveTowards(transform.position, target[currentPoint], AISpeed * Time.deltaTime);
         }
@@ -61,9 +60,11 @@ public class AIMovement : MonoBehaviour
                 break;
 
             case GameConstant.GREEN_TAG:
+                AIMove(aITargetPoint.GreenTarget);
                 break;
 
             case GameConstant.YELLOW_TAG:
+                AIMove(aITargetPoint.YellowTarget);
                 break;
 
             default:

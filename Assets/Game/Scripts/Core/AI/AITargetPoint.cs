@@ -26,7 +26,6 @@ public class AITargetPoint : Singleton<AITargetPoint>
             
             case GameConstant.RED_TAG:
                 RedTarget.Add(spawnPosition);
-                Debug.Log(RedTarget[0]);
                 break;
             
             case GameConstant.GREEN_TAG:

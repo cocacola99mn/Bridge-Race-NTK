@@ -1645,8 +1645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIBody: {fileID: 8358447459834125054}
   currentPoint: 0
-  targetPoint: {x: 0, y: 0, z: 0}
-  AISpeed: 1
+  AISpeed: 2
   TPRadius: 0
   turnVelocity: 0
   turnTime: 0
@@ -1743,7 +1742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9168839006888641419}
   m_Layer: 0
-  m_Name: BrickHolder
+  m_Name: RedBrickHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

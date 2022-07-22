@@ -244,7 +244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193970887390763602}
   m_LocalRotation: {x: 0.00000007902157, y: 4.5474735e-12, z: -0.0000000035815901, w: 1}
-  m_LocalPosition: {x: 0.00000001154287, y: 0.000000023720785, z: -0.0000000042690953}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 7455388188743368100}
@@ -1326,7 +1326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6988572269513195114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.086, z: -0.197}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7455388188743368100}
@@ -1408,9 +1408,11 @@ GameObject:
   - component: {fileID: 3573308174159914974}
   - component: {fileID: 6988572268640414339}
   - component: {fileID: 6988572268640414336}
+  - component: {fileID: 919132148790534461}
+  - component: {fileID: 919132148790534465}
   m_Layer: 0
   m_Name: The Player
-  m_TagString: Player
+  m_TagString: Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1462,13 +1464,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.55
-  m_Radius: 0.1
+  m_Height: 0.4
+  m_Radius: 0.028
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.33, z: 0}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &6988572268640414336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,6 +1486,40 @@ MonoBehaviour:
   controller: {fileID: 6988572268640414339}
   PlayerSpeed: 2
   turnTime: 0.05
+  MovementAnim: {fileID: 0}
+  MoveForwardRestrict: 0
+--- !u!114 &919132148790534461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799404020505814814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b767f4e5f86c5c4b9ba08b63a201a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrickHolder: []
+  GridBrickPos: []
+  Holder: {fileID: 6988572269513195114}
+--- !u!114 &919132148790534465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799404020505814814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8904d95c2ee1e7b46b1095d06dfdd1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7799404020505814814}
+  BrickMaterial: {fileID: 2100000, guid: d86cedf1143f8f44a9727384308720e1, type: 2}
+  bridgeStairLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7876176226659461227
 GameObject:
   m_ObjectHideFlags: 0

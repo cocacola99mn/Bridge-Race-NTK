@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2740307729281689984}
   - component: {fileID: 8485934192938037094}
+  - component: {fileID: -2282260976741559895}
   m_Layer: 0
   m_Name: RedBrick
   m_TagString: Untagged
@@ -126,3 +127,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2049768, y: 0.3891863, z: 0.09055042}
   m_Center: {x: -0.001299262, y: 0.1430022, z: -0.00031530857}
+--- !u!114 &-2282260976741559895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213849994443207103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038208805fe11234abede2c158d98c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickColor: {fileID: 11400000, guid: 8c057dc38af0644499bd9603d643ab22, type: 2}
