@@ -97,28 +97,7 @@ public class BridgeRaycast : MonoBehaviour
             }
             else if (hit.distance < 0.42)
             {
-                switch (player.tag)
-                {
-                    case GameConstant.BLUE_TAG:
-                        checkStairTag(GameConstant.BLUE_TAG, hit);
-                        break;
-
-                    case GameConstant.GREEN_TAG:
-                        checkStairTag(GameConstant.GREEN_TAG, hit);
-                        break;
-
-                    case GameConstant.RED_TAG:
-                        checkStairTag(GameConstant.RED_TAG, hit);
-                        break;
-
-                    case GameConstant.YELLOW_TAG:
-                        checkStairTag(GameConstant.YELLOW_TAG, hit);
-                        break;
-
-                    default:
-                        Debug.Log("Error Raycast");
-                        break;
-                }
+                checkStairTag(GameConstant.BLUE_TAG, hit);
             }
             else
             {

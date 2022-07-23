@@ -19,10 +19,20 @@ public class BrickAdd : MonoBehaviour
         {
             PlayerInteract.Ins.AddBrick(gameObject);
         }
-
+        
         if (string.Equals(brickColor.color, GameConstant.RED_TAG) && other.CompareTag(GameConstant.RED_TAG))
         {
-            AIInteract.Ins.AddBrick(gameObject,aIInteract.RedGridBrickPos,aIInteract.RedHolder,aIInteract.RedholderPos,aIInteract.RedBrickHolder);
+            AIInteract.Ins.AddBrick(GameConstant.RED_TAG,gameObject,aIInteract.RedGridBrickPos,aIInteract.RedHolder,aIInteract.RedBrickHolder);
+        }
+        
+        if (string.Equals(brickColor.color, GameConstant.GREEN_TAG) && other.CompareTag(GameConstant.GREEN_TAG))
+        {
+            AIInteract.Ins.AddBrick(GameConstant.GREEN_TAG,gameObject, aIInteract.GreenGridBrickPos, aIInteract.GreenHolder, aIInteract.GreenBrickHolder);
+        }
+        
+        if (string.Equals(brickColor.color, GameConstant.YELLOW_TAG) && other.CompareTag(GameConstant.YELLOW_TAG))
+        {
+            AIInteract.Ins.AddBrick(GameConstant.YELLOW_TAG,gameObject, aIInteract.YellowGridBrickPos, aIInteract.YellowHolder, aIInteract.YellowBrickHolder);
         }
     }
 }

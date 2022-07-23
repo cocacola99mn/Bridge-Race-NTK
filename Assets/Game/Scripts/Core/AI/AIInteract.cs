@@ -15,24 +15,8 @@ public class AIInteract : Singleton<AIInteract>
 
     private void Start()
     {
-        if (RedHolder != null)
-        {
-            RedholderPos = RedHolder.transform.localPosition;
-            RedholderPos = RedHolder.transform.localEulerAngles;
-        }
 
-        if (GreenHolder != null)
-        {
-            GreenholderPos = GreenHolder.transform.localPosition;
-            GreenholderPos = GreenHolder.transform.localEulerAngles;
-        }
-
-        if (YellowHolder != null)
-        {
-            YellowholderPos = YellowHolder.transform.localPosition;
-            YellowholderPos = YellowHolder.transform.localEulerAngles;
-        }
-               
+              
         RedBrickHolder = new List<GameObject>();
         RedGridBrickPos = new List<Vector3>();
         
@@ -45,28 +29,34 @@ public class AIInteract : Singleton<AIInteract>
         objPool = ObjectPooling.Ins;
     }
 
-    public void AddBrick(GameObject Brick,List<Vector3> GridBrickPos, GameObject Holder, Vector3 holderPos, List<GameObject> BrickHolder)
+    public void AddBrick(string tag ,GameObject Brick,List<Vector3> GridBrickPos, GameObject Holder, List<GameObject> BrickHolder)
     {
         GridBrickPos.Add(Brick.transform.localPosition);
         Brick.transform.parent = Holder.transform;
 
-        if(holderPos == RedholderPos)
+        switch (tag)
         {
-            RedholderPos.y += 0.07f;
-            Brick.transform.localPosition = RedholderPos;
-            Brick.transform.localEulerAngles = RedholderPos;
-        }
-        else if(holderPos == GreenholderPos)
-        {
-            GreenholderPos.y += 0.07f;
-            Brick.transform.localPosition = GreenholderPos;
-            Brick.transform.localEulerAngles = GreenholderPos;
-        }
-        else if(holderPos == YellowholderPos)
-        {
-            YellowholderPos.y += 0.07f;
-            Brick.transform.localPosition = YellowholderPos;
-            Brick.transform.localEulerAngles = YellowholderPos;
+            case GameConstant.RED_TAG:
+                RedholderPos.y += 0.07f;
+                Brick.transform.localPosition = RedholderPos;
+                Brick.transform.localEulerAngles = RedholderPos;
+                break;
+
+            case GameConstant.GREEN_TAG:
+                GreenholderPos.y += 0.07f;
+                Brick.transform.localPosition = GreenholderPos;
+                Brick.transform.localEulerAngles = GreenholderPos;
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                YellowholderPos.y += 0.07f;
+                Brick.transform.localPosition = YellowholderPos;
+                Brick.transform.localEulerAngles = YellowholderPos;
+                break;
+
+            default:
+                Debug.Log("Add Brick Error");
+                break;
         }
         
         BrickHolder.Add(Brick);
@@ -86,12 +76,36 @@ public class AIInteract : Singleton<AIInteract>
 
         objPool.Spawn(tag, lastPosElement, Quaternion.identity);
 
-        holderPos.y -= 0.07f;
+        if (holderPos == RedholderPos)
+        {
+            RedholderPos.y -= 0.07f;
+        }
+        else if (holderPos == GreenholderPos)
+        {
+            GreenholderPos.y -= 0.07f;
+        }
+        else if (holderPos == YellowholderPos)
+        {
+            YellowholderPos.y -= 0.07f;
+        }
     }
 
     public void RemoveLastElement(GameObject lastElement, Vector3 lastPosElement, List<Vector3> GridBrickPos, List<GameObject> BrickHolder)
     {
         BrickHolder.Remove(lastElement);
         GridBrickPos.Remove(lastPosElement);
+    }
+
+    public bool AIRandomLitmit(List<GameObject> BrickHolder)
+    {
+        int RandomLimit = Random.Range(10, 15);
+        bool RaycastOn = false;
+        
+        if(BrickHolder.Count >= RandomLimit)
+        {
+            RaycastOn = true;
+        }
+
+        return RaycastOn;
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AIBridgeRaycast : MonoBehaviour
 {
-    public GameObject RedAI, GreenAI, BlueAI;
-
     private float range = 10f;
 
     Renderer selectChildRenderer;
@@ -15,20 +13,19 @@ public class AIBridgeRaycast : MonoBehaviour
     private Material BrickMaterial;
 
     [SerializeField]
-    private LayerMask bridgeStairLayer;
+    private LayerMask bridgeStairLayer,AIBridgeNav;
+
 
     Vector3 MovementRestrictDirection, DropBrickDirection, RayPosition;
 
-    PlayerInteract Interact;
-    Player playerIns;
+    AIInteract aIInteract;
 
     void Start()
     {
         DropBrickDirection = Quaternion.Euler(-50, 0, 0) * Vector3.down * range;
         MovementRestrictDirection = Vector3.forward * range;
 
-        Interact = PlayerInteract.Ins;
-        playerIns = Player.Ins;
+        aIInteract = AIInteract.Ins;
     }
 
     void Update()
@@ -37,7 +34,7 @@ public class AIBridgeRaycast : MonoBehaviour
 
         DropBrickRay();
 
-        MovementRestrictRay();
+        NavigateBridgeRay();
     }
 
     public void DropBrickRay()
@@ -48,18 +45,32 @@ public class AIBridgeRaycast : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, range, bridgeStairLayer))
         {
-            BuildBridge(hit);
+            switch (gameObject.tag)
+            {
+                case GameConstant.RED_TAG:
+                    BuildBridge(hit, aIInteract.RedBrickHolder);
+                    break;
+                case GameConstant.GREEN_TAG:
+                    BuildBridge(hit, aIInteract.GreenBrickHolder);
+                    break;
+                case GameConstant.YELLOW_TAG:
+                    BuildBridge(hit, aIInteract.YellowBrickHolder);
+                    break;
+                default:
+                    Debug.Log("Error DropBrickRay");
+                    break;
+            }            
         }
     }
 
-    public void BuildBridge(RaycastHit hit)
+    public void BuildBridge(RaycastHit hit, List<GameObject> BrickHolder)
     {
-        if (Interact.BrickHolder.Count > 0)
+        if (BrickHolder.Count > 0)
         {
             select = hit.transform;
-            if (!hit.transform.gameObject.CompareTag(GameConstant.BLUE_TAG))
+            if (!hit.transform.gameObject.CompareTag(gameObject.tag))
             {
-                hit.transform.gameObject.tag = GameConstant.BLUE_TAG;
+                hit.transform.gameObject.tag = gameObject.tag;
                 try
                 {
                     modifyChildRenderer();
@@ -76,63 +87,56 @@ public class AIBridgeRaycast : MonoBehaviour
     public void modifyChildRenderer()
     {
         selectChildRenderer = select.GetComponentInChildren<Renderer>();
+        
         if (selectChildRenderer != null)
         {
             selectChildRenderer.material = BrickMaterial;
             selectChildRenderer.enabled = true;
-            Interact.DropBrick(GameConstant.BLUE_TAG);
+        
+            switch (gameObject.tag)
+            {
+                case GameConstant.RED_TAG:
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.RedGridBrickPos,aIInteract.RedBrickHolder,aIInteract.RedholderPos);
+                    break;
+                case GameConstant.GREEN_TAG:
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.GreenGridBrickPos, aIInteract.GreenBrickHolder, aIInteract.GreenholderPos);
+                    break;
+                case GameConstant.YELLOW_TAG:
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.YellowGridBrickPos, aIInteract.YellowBrickHolder, aIInteract.YellowholderPos);
+                    break;
+                default:
+                    Debug.Log("Error DropBrickRay 2");
+                    break;
+            }            
         }
     }
 
-    public void MovementRestrictRay()
+    public void NavigateBridgeRay()
     {
         Ray ray = new Ray(RayPosition, MovementRestrictDirection);
         RaycastHit hit;
         Debug.DrawRay(RayPosition, MovementRestrictDirection);
 
-        if (Physics.Raycast(ray, out hit, range, bridgeStairLayer))
+        switch (gameObject.tag)
         {
-            if (Interact.BrickHolder.Count > 0)
-            {
-                playerIns.MoveForwardRestrict = false;
-            }
-            else if (hit.distance < 0.42)
-            {
-                switch (gameObject.tag)
+            case GameConstant.RED_TAG:
+                aIInteract.AIRandomLitmit(aIInteract.RedBrickHolder);
+                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
                 {
-                    case GameConstant.BLUE_TAG:
-                        checkStairTag(GameConstant.BLUE_TAG, hit);
-                        break;
 
-                    case GameConstant.GREEN_TAG:
-                        checkStairTag(GameConstant.GREEN_TAG, hit);
-                        break;
-
-                    case GameConstant.RED_TAG:
-                        checkStairTag(GameConstant.RED_TAG, hit);
-                        break;
-
-                    case GameConstant.YELLOW_TAG:
-                        checkStairTag(GameConstant.YELLOW_TAG, hit);
-                        break;
-
-                    default:
-                        Debug.Log("Error Raycast");
-                        break;
                 }
-            }
-            else
-            {
-                playerIns.MoveForwardRestrict = false;
-            }
+                break;
+            case GameConstant.GREEN_TAG:
+                aIInteract.AIRandomLitmit(aIInteract.GreenBrickHolder);
+                break;
+            case GameConstant.YELLOW_TAG:
+                aIInteract.AIRandomLitmit(aIInteract.YellowBrickHolder);
+                break;
+            default:
+                Debug.Log("Error NavigateBrickRay");
+                break;
         }
-    }
 
-    public void checkStairTag(string tag, RaycastHit hit)
-    {
-        if (hit.collider.CompareTag(tag) == true)
-            playerIns.MoveForwardRestrict = false;
-        else
-            playerIns.MoveForwardRestrict = true;
+        
     }
 }

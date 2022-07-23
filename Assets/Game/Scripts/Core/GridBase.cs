@@ -104,6 +104,7 @@ public class GridBase : MonoBehaviour
             }
             else
                 objPool.Spawn(GameConstant.YELLOW_TAG, spawnPosition, Quaternion.identity);
+                AITargetPoint.Ins.getTargetPointByColor(GameConstant.YELLOW_TAG, spawnPosition);
         }
     }
 
@@ -114,7 +115,6 @@ public class GridBase : MonoBehaviour
         else
         {
             ObjectPooling.Ins.Spawn(tag, spawnPosition, Quaternion.identity);
-
             AITargetPoint.Ins.getTargetPointByColor(tag, spawnPosition);
         }
             

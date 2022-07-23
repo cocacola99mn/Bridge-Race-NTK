@@ -327,7 +327,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bbf9d1c383eb9541af2c97e8c7260f9, type: 2}
+  - {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1597,8 +1597,8 @@ GameObject:
   - component: {fileID: 478756517}
   - component: {fileID: 478756522}
   m_Layer: 0
-  m_Name: Red Player
-  m_TagString: Red
+  m_Name: Yellow Player
+  m_TagString: Yellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe82a392380976d479ec87a2395f69f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BrickMaterial: {fileID: 2100000, guid: 7bbf9d1c383eb9541af2c97e8c7260f9, type: 2}
+  BrickMaterial: {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   bridgeStairLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1739,8 +1739,8 @@ MonoBehaviour:
   RedGridBrickPos: []
   YellowGridBrickPos: []
   GreenGridBrickPos: []
-  RedHolder: {fileID: 9168839006888641418}
-  YellowHolder: {fileID: 0}
+  RedHolder: {fileID: 0}
+  YellowHolder: {fileID: 9168839006888641418}
   GreenHolder: {fileID: 0}
   RedholderPos: {x: 0, y: 0, z: 0}
   GreenholderPos: {x: 0, y: 0, z: 0}
@@ -1819,7 +1819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9168839006888641419}
   m_Layer: 0
-  m_Name: RedBrickHolder
+  m_Name: YellowBrickHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

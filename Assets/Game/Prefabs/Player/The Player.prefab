@@ -1465,7 +1465,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 0.4
-  m_Radius: 0.028
+  m_Radius: 0.035
   m_SlopeLimit: 45
   m_StepOffset: 0.2
   m_SkinWidth: 0.08
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6988572268640414339}
-  PlayerSpeed: 2
+  PlayerSpeed: 1.5
   turnTime: 0.05
   MovementAnim: {fileID: 0}
   MoveForwardRestrict: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIMovement : MonoBehaviour
+public class AIMovement : Singleton<AIMovement>
 {
     public GameObject AIBody;
     
