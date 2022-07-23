@@ -6,6 +6,8 @@ public class AIBridgeRaycast : MonoBehaviour
 {
     private float range = 10f;
 
+    public GameObject RedAI, GreenAI, YellowAI;
+    
     Renderer selectChildRenderer;
     Transform select;
 
@@ -15,8 +17,8 @@ public class AIBridgeRaycast : MonoBehaviour
     [SerializeField]
     private LayerMask bridgeStairLayer,AIBridgeNav;
 
-
-    Vector3 MovementRestrictDirection, DropBrickDirection, RayPosition;
+    bool RayCreated = false;
+    Vector3 MovementRestrictDirection, DropBrickDirection, RayPosition,RedAIPos,GreenAIPos,YellowAIPos;
 
     AIInteract aIInteract;
 
@@ -31,10 +33,18 @@ public class AIBridgeRaycast : MonoBehaviour
     void Update()
     {
         RayPosition = transform.position;
-
+        RedAIPos = RedAI.transform.position;
+        GreenAIPos = GreenAI.transform.position;
+        YellowAIPos = YellowAI.transform.position;
+            
         DropBrickRay();
 
-        NavigateBridgeRay();
+        if (aIInteract.AIRandomLitmit(aIInteract.RedBrickHolder) == true)
+            NavigateBridgeRay(RedAIPos);
+        if (aIInteract.AIRandomLitmit(aIInteract.GreenBrickHolder) == true)
+            NavigateBridgeRay(GreenAIPos);
+        if (aIInteract.AIRandomLitmit(aIInteract.YellowBrickHolder) == true)
+            NavigateBridgeRay(YellowAIPos);
     }
 
     public void DropBrickRay()
@@ -111,32 +121,35 @@ public class AIBridgeRaycast : MonoBehaviour
         }
     }
 
-    public void NavigateBridgeRay()
+    public void NavigateBridgeRay(Vector3 RayPos)
     {
-        Ray ray = new Ray(RayPosition, MovementRestrictDirection);
+        Ray ray = new Ray(RayPos, MovementRestrictDirection);
         RaycastHit hit;
-        Debug.DrawRay(RayPosition, MovementRestrictDirection);
+        Debug.DrawRay(RayPos, MovementRestrictDirection);
 
         switch (gameObject.tag)
         {
             case GameConstant.RED_TAG:
-                aIInteract.AIRandomLitmit(aIInteract.RedBrickHolder);
                 if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
                 {
-
+                    Debug.Log("Red");
                 }
                 break;
             case GameConstant.GREEN_TAG:
-                aIInteract.AIRandomLitmit(aIInteract.GreenBrickHolder);
+                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
+                {
+                    Debug.Log("Green");
+                }
                 break;
             case GameConstant.YELLOW_TAG:
-                aIInteract.AIRandomLitmit(aIInteract.YellowBrickHolder);
+                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
+                {
+                    Debug.Log("Yellow");
+                }
                 break;
             default:
-                Debug.Log("Error NavigateBrickRay");
+                Debug.Log("NavBridgeError");
                 break;
-        }
-
-        
+        }      
     }
 }

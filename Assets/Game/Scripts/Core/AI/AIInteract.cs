@@ -14,9 +14,7 @@ public class AIInteract : Singleton<AIInteract>
     public Vector3 RedholderPos, GreenholderPos, YellowholderPos;
 
     private void Start()
-    {
-
-              
+    {            
         RedBrickHolder = new List<GameObject>();
         RedGridBrickPos = new List<Vector3>();
         
@@ -98,9 +96,9 @@ public class AIInteract : Singleton<AIInteract>
 
     public bool AIRandomLitmit(List<GameObject> BrickHolder)
     {
-        int RandomLimit = Random.Range(10, 15);
+        int RandomLimit = Random.Range(5, 15);
         bool RaycastOn = false;
-        
+
         if(BrickHolder.Count >= RandomLimit)
         {
             RaycastOn = true;

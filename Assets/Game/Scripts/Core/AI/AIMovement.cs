@@ -13,6 +13,7 @@ public class AIMovement : Singleton<AIMovement>
     
     private Animator MovementAnim;
 
+    public bool reachLimit;
     public void Start()
     {
         MovementAnim = GetComponent<Animator>();
@@ -22,11 +23,16 @@ public class AIMovement : Singleton<AIMovement>
         
         TPRadius = 0.1f;
         turnTime = 0.1f;
+        
+        reachLimit = false;
     }
 
     private void Update()
     {
-        SetTarget();
+        if (reachLimit == false)
+            SetTarget();
+        else
+            AIComeBridge();
     }
 
     public void AIMove(List<Vector3> target)
@@ -51,12 +57,17 @@ public class AIMovement : Singleton<AIMovement>
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
+    public void AIComeBridge()
+    {
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
     public void SetTarget()
     {
         switch (gameObject.tag)
         {
             case GameConstant.RED_TAG:
-                AIMove(aITargetPoint.RedTarget);
+                    AIMove(aITargetPoint.RedTarget);                                  
                 break;
 
             case GameConstant.GREEN_TAG:
