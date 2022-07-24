@@ -20,10 +20,7 @@ public class AITargetPoint : Singleton<AITargetPoint>
     public void getTargetPointByColor(string tag, Vector3 spawnPosition)
     {
         switch (tag)
-        {
-            case GameConstant.BLUE_TAG:
-                break;
-            
+        {            
             case GameConstant.RED_TAG:
                 RedTarget.Add(spawnPosition);
                 break;

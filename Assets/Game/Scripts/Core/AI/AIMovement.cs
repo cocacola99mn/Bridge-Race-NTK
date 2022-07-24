@@ -5,17 +5,26 @@ using UnityEngine;
 public class AIMovement : Singleton<AIMovement>
 {
     public GameObject AIBody;
+
+    private float range = 10f;
+
+    [SerializeField]
+    private LayerMask AIBridgeNav;
+
+    public Vector3 AIBodyPos,ForwardDirection;
     
     public int currentPoint = 0;
+    
     public float AISpeed, TPRadius, turnVelocity ,turnTime;
 
     AITargetPoint aITargetPoint;
     
     private Animator MovementAnim;
 
-    public bool reachLimit;
+    public bool redReachLimit, greenReachLimit, yellowReachLimit;
     public void Start()
     {
+        ForwardDirection = Vector3.forward * range;
         MovementAnim = GetComponent<Animator>();
         aITargetPoint = AITargetPoint.Ins;
         
@@ -24,23 +33,24 @@ public class AIMovement : Singleton<AIMovement>
         TPRadius = 0.1f;
         turnTime = 0.1f;
         
-        reachLimit = false;
+        redReachLimit = false;
+        greenReachLimit = false;
+        yellowReachLimit = false;
     }
 
     private void Update()
     {
-        if (reachLimit == false)
-            SetTarget();
-        else
-            AIComeBridge();
+        AIBodyPos = AIBody.transform.position;
+
+        ReleaseRay();
+        SetTarget();
     }
 
     public void AIMove(List<Vector3> target)
     {
-        RunAnim();
-
         if (target.Count > 1)
         {
+            RunAnim();
             if (Vector3.Distance(target[currentPoint], transform.position) < TPRadius)
             {
                 currentPoint = Random.Range(0, 29);
@@ -57,9 +67,36 @@ public class AIMovement : Singleton<AIMovement>
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    public void AIComeBridge()
+    public void AIComeBridge(List<GameObject> BrickHolder)
     {
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        if(BrickHolder.Count == 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
+            switch (gameObject.tag)
+            {
+                case GameConstant.RED_TAG:
+                    redReachLimit = false;
+                    break;
+
+                case GameConstant.GREEN_TAG:
+                    greenReachLimit = false;
+                    break;
+
+                case GameConstant.YELLOW_TAG:
+                    yellowReachLimit = false;
+                    break;
+
+                default:
+                    Debug.Log("ErrorNav");
+                    break;
+            }
+        }
+        else
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
+        }        
     }
 
     public void SetTarget()
@@ -67,15 +104,24 @@ public class AIMovement : Singleton<AIMovement>
         switch (gameObject.tag)
         {
             case GameConstant.RED_TAG:
-                    AIMove(aITargetPoint.RedTarget);                                  
+                if (redReachLimit == false)
+                    AIMove(aITargetPoint.RedTarget);
+                else
+                    AIComeBridge(AIInteract.Ins.RedBrickHolder);
                 break;
 
             case GameConstant.GREEN_TAG:
-                AIMove(aITargetPoint.GreenTarget);
+                if (greenReachLimit == false)
+                    AIMove(aITargetPoint.GreenTarget);
+                else
+                    AIComeBridge(AIInteract.Ins.GreenBrickHolder);
                 break;
 
             case GameConstant.YELLOW_TAG:
-                AIMove(aITargetPoint.YellowTarget);
+                if (yellowReachLimit == false)
+                    AIMove(aITargetPoint.YellowTarget);
+                else
+                    AIComeBridge(AIInteract.Ins.YellowBrickHolder);
                 break;
 
             default:
@@ -92,5 +138,58 @@ public class AIMovement : Singleton<AIMovement>
     protected void Idle()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
+    }
+
+    public void ReleaseRay()
+    {
+        switch (gameObject.tag)
+        {
+            case GameConstant.RED_TAG:
+                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.RedBrickHolder) == true)
+                    NavigateRay();
+                break;
+
+            case GameConstant.GREEN_TAG:
+                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.GreenBrickHolder) == true)
+                    NavigateRay();
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.YellowBrickHolder) == true)
+                    NavigateRay();
+                break;
+
+            default:
+                Debug.Log("ErrorNav");
+                break;
+        }
+    }
+    
+    public void NavigateRay()
+    {
+        Ray redRay = new Ray(AIBodyPos, ForwardDirection);
+        RaycastHit redHit;
+        Debug.DrawRay(AIBodyPos, ForwardDirection);
+        if (Physics.Raycast(redRay, out redHit, range, AIBridgeNav))
+        {
+            switch (gameObject.tag)
+            {
+                case GameConstant.RED_TAG:
+                    redReachLimit = true;
+                    break;
+
+                case GameConstant.GREEN_TAG:
+                    greenReachLimit = true;
+                    break;
+
+                case GameConstant.YELLOW_TAG:
+                    yellowReachLimit = true;
+                    break;
+
+                default:
+                    Debug.Log("ErrorNav");
+                    break;
+            }
+        }
     }
 }

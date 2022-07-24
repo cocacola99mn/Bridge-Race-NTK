@@ -15,17 +15,16 @@ public class AIBridgeRaycast : MonoBehaviour
     private Material BrickMaterial;
 
     [SerializeField]
-    private LayerMask bridgeStairLayer,AIBridgeNav;
+    private LayerMask bridgeStairLayer;
 
-    bool RayCreated = false;
-    Vector3 MovementRestrictDirection, DropBrickDirection, RayPosition,RedAIPos,GreenAIPos,YellowAIPos;
+    Vector3 ForwardDirection, DropBrickDirection, RayPosition;
 
     AIInteract aIInteract;
 
     void Start()
     {
         DropBrickDirection = Quaternion.Euler(-50, 0, 0) * Vector3.down * range;
-        MovementRestrictDirection = Vector3.forward * range;
+        ForwardDirection = Vector3.forward * range;
 
         aIInteract = AIInteract.Ins;
     }
@@ -33,18 +32,8 @@ public class AIBridgeRaycast : MonoBehaviour
     void Update()
     {
         RayPosition = transform.position;
-        RedAIPos = RedAI.transform.position;
-        GreenAIPos = GreenAI.transform.position;
-        YellowAIPos = YellowAI.transform.position;
             
         DropBrickRay();
-
-        if (aIInteract.AIRandomLitmit(aIInteract.RedBrickHolder) == true)
-            NavigateBridgeRay(RedAIPos);
-        if (aIInteract.AIRandomLitmit(aIInteract.GreenBrickHolder) == true)
-            NavigateBridgeRay(GreenAIPos);
-        if (aIInteract.AIRandomLitmit(aIInteract.YellowBrickHolder) == true)
-            NavigateBridgeRay(YellowAIPos);
     }
 
     public void DropBrickRay()
@@ -119,37 +108,5 @@ public class AIBridgeRaycast : MonoBehaviour
                     break;
             }            
         }
-    }
-
-    public void NavigateBridgeRay(Vector3 RayPos)
-    {
-        Ray ray = new Ray(RayPos, MovementRestrictDirection);
-        RaycastHit hit;
-        Debug.DrawRay(RayPos, MovementRestrictDirection);
-
-        switch (gameObject.tag)
-        {
-            case GameConstant.RED_TAG:
-                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
-                {
-                    Debug.Log("Red");
-                }
-                break;
-            case GameConstant.GREEN_TAG:
-                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
-                {
-                    Debug.Log("Green");
-                }
-                break;
-            case GameConstant.YELLOW_TAG:
-                if (Physics.Raycast(ray, out hit, range, AIBridgeNav))
-                {
-                    Debug.Log("Yellow");
-                }
-                break;
-            default:
-                Debug.Log("NavBridgeError");
-                break;
-        }      
     }
 }

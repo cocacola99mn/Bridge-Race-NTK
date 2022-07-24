@@ -94,12 +94,11 @@ public class AIInteract : Singleton<AIInteract>
         GridBrickPos.Remove(lastPosElement);
     }
 
-    public bool AIRandomLitmit(List<GameObject> BrickHolder)
+    public bool AIHolderLitmit(List<GameObject> BrickHolder)
     {
-        int RandomLimit = Random.Range(5, 15);
         bool RaycastOn = false;
 
-        if(BrickHolder.Count >= RandomLimit)
+        if(BrickHolder.Count >= 10)
         {
             RaycastOn = true;
         }
