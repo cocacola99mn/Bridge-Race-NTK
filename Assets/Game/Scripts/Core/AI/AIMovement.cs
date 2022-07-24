@@ -13,7 +13,7 @@ public class AIMovement : Singleton<AIMovement>
 
     public Vector3 AIBodyPos,ForwardDirection;
     
-    public int currentPoint = 0;
+    public int currentPoint, redMin,redMax,greenMin,greenMax,yellowMin,yellowMax;
     
     public float AISpeed, TPRadius, turnVelocity ,turnTime;
 
@@ -22,6 +22,7 @@ public class AIMovement : Singleton<AIMovement>
     private Animator MovementAnim;
 
     public bool redReachLimit, greenReachLimit, yellowReachLimit;
+    
     public void Start()
     {
         ForwardDirection = Vector3.forward * range;
@@ -36,6 +37,14 @@ public class AIMovement : Singleton<AIMovement>
         redReachLimit = false;
         greenReachLimit = false;
         yellowReachLimit = false;
+
+        currentPoint = 0;
+        redMin = 0;
+        redMax = 29;
+        greenMin = 0;
+        greenMax = 29;
+        yellowMin = 0;
+        yellowMax = 29;
     }
 
     private void Update()
@@ -46,14 +55,14 @@ public class AIMovement : Singleton<AIMovement>
         SetTarget();
     }
 
-    public void AIMove(List<Vector3> target)
+    public void AIMove(List<Vector3> target,int min, int max)
     {
         if (target.Count > 1)
         {
             RunAnim();
             if (Vector3.Distance(target[currentPoint], transform.position) < TPRadius)
             {
-                currentPoint = Random.Range(0, 29);
+                currentPoint = Random.Range(min, max);
             }
             AIRotation(target[currentPoint] - transform.position);
             transform.position = Vector3.MoveTowards(transform.position, target[currentPoint], AISpeed * Time.deltaTime);
@@ -71,8 +80,10 @@ public class AIMovement : Singleton<AIMovement>
     {
         if(BrickHolder.Count == 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, 180, ref turnVelocity, turnTime);
+            gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
             gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
+            
             switch (gameObject.tag)
             {
                 case GameConstant.RED_TAG:
@@ -94,7 +105,8 @@ public class AIMovement : Singleton<AIMovement>
         }
         else
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, 0, ref turnVelocity, turnTime);
+            gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
             gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
         }        
     }
@@ -105,21 +117,21 @@ public class AIMovement : Singleton<AIMovement>
         {
             case GameConstant.RED_TAG:
                 if (redReachLimit == false)
-                    AIMove(aITargetPoint.RedTarget);
+                    AIMove(aITargetPoint.RedTarget,redMin,redMax);
                 else
                     AIComeBridge(AIInteract.Ins.RedBrickHolder);
                 break;
 
             case GameConstant.GREEN_TAG:
                 if (greenReachLimit == false)
-                    AIMove(aITargetPoint.GreenTarget);
+                    AIMove(aITargetPoint.GreenTarget,greenMin,greenMax);
                 else
                     AIComeBridge(AIInteract.Ins.GreenBrickHolder);
                 break;
 
             case GameConstant.YELLOW_TAG:
                 if (yellowReachLimit == false)
-                    AIMove(aITargetPoint.YellowTarget);
+                    AIMove(aITargetPoint.YellowTarget,yellowMin,yellowMax);
                 else
                     AIComeBridge(AIInteract.Ins.YellowBrickHolder);
                 break;
@@ -191,5 +203,10 @@ public class AIMovement : Singleton<AIMovement>
                     break;
             }
         }
+    }
+
+    public void AIOnStateChange()
+    {
+        
     }
 }

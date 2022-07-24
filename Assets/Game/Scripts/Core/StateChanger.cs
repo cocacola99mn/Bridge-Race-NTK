@@ -9,6 +9,5 @@ public class StateChanger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         LevelManager.Ins.ChangeGameState(gameState);
-        Destroy(this.gameObject);
     }
 }

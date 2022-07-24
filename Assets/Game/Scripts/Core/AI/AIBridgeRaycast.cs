@@ -95,13 +95,13 @@ public class AIBridgeRaycast : MonoBehaviour
             switch (gameObject.tag)
             {
                 case GameConstant.RED_TAG:
-                    aIInteract.DropBrick(gameObject.tag, aIInteract.RedGridBrickPos,aIInteract.RedBrickHolder,aIInteract.RedholderPos);
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.RedGridBrickPos,aIInteract.RedBrickHolder);
                     break;
                 case GameConstant.GREEN_TAG:
-                    aIInteract.DropBrick(gameObject.tag, aIInteract.GreenGridBrickPos, aIInteract.GreenBrickHolder, aIInteract.GreenholderPos);
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.GreenGridBrickPos, aIInteract.GreenBrickHolder);
                     break;
                 case GameConstant.YELLOW_TAG:
-                    aIInteract.DropBrick(gameObject.tag, aIInteract.YellowGridBrickPos, aIInteract.YellowBrickHolder, aIInteract.YellowholderPos);
+                    aIInteract.DropBrick(gameObject.tag, aIInteract.YellowGridBrickPos, aIInteract.YellowBrickHolder);
                     break;
                 default:
                     Debug.Log("Error DropBrickRay 2");

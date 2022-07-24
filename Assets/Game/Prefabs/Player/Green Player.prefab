@@ -1129,6 +1129,12 @@ MonoBehaviour:
   AIBodyPos: {x: 0, y: 0, z: 0}
   ForwardDirection: {x: 0, y: 0, z: 0}
   currentPoint: 0
+  redMin: 0
+  redMax: 0
+  greenMin: 0
+  greenMax: 0
+  yellowMin: 0
+  yellowMax: 0
   AISpeed: 1.5
   TPRadius: 0
   turnVelocity: 0

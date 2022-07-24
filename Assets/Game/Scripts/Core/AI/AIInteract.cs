@@ -60,7 +60,7 @@ public class AIInteract : Singleton<AIInteract>
         BrickHolder.Add(Brick);
     }
 
-    public void DropBrick(string tag,List<Vector3> GridBrickPos, List<GameObject> BrickHolder, Vector3 holderPos)
+    public void DropBrick(string tag, List<Vector3> GridBrickPos, List<GameObject> BrickHolder)
     {
 
         GameObject lastElement = BrickHolder[BrickHolder.Count - 1];
@@ -74,17 +74,23 @@ public class AIInteract : Singleton<AIInteract>
 
         objPool.Spawn(tag, lastPosElement, Quaternion.identity);
 
-        if (holderPos == RedholderPos)
+        switch (tag)
         {
-            RedholderPos.y -= 0.07f;
-        }
-        else if (holderPos == GreenholderPos)
-        {
-            GreenholderPos.y -= 0.07f;
-        }
-        else if (holderPos == YellowholderPos)
-        {
-            YellowholderPos.y -= 0.07f;
+            case GameConstant.RED_TAG:
+                RedholderPos.y -= 0.07f;
+                break;
+
+            case GameConstant.GREEN_TAG:
+                GreenholderPos.y -= 0.07f;
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                YellowholderPos.y -= 0.07f;
+                break;
+
+            default:
+                Debug.Log("ErrorNav");
+                break;
         }
     }
 
@@ -98,10 +104,8 @@ public class AIInteract : Singleton<AIInteract>
     {
         bool RaycastOn = false;
 
-        if(BrickHolder.Count >= 10)
-        {
+        if(BrickHolder.Count >= 13)
             RaycastOn = true;
-        }
 
         return RaycastOn;
     }
