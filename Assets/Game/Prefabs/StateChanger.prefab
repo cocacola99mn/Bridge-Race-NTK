@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2541712987059943646}
   m_Layer: 0
   m_Name: StateChanger
-  m_TagString: Untagged
+  m_TagString: StateChanger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 2541712987059943644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.3}
   m_Children:
   - {fileID: 2067145972}
   m_Father: {fileID: 0}
@@ -140,3 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 1
+  redAIState: 1
+  greenAIState: 1
+  yellowAIState: 1

@@ -33,7 +33,6 @@ public class AITargetPoint : Singleton<AITargetPoint>
                 YellowTarget.Add(spawnPosition);
                 break;
             default:
-                Debug.Log("BlueSpawn or TargetAI Error");
                 break;
         }
     }

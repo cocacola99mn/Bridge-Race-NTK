@@ -9,6 +9,7 @@ TagManager:
   - Yellow
   - Red
   - LastHitObject
+  - StateChanger
   layers:
   - Default
   - TransparentFX

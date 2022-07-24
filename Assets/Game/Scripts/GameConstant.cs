@@ -17,4 +17,5 @@ public static class GameConstant
     public const string SPEED_PARA = "Speed";
     public const string PLAYER_TAG = "Player";
     public const string LASTHITOBJECT_TAG = "LastHitObject";
+    public const string STATECHANGER_TAG = "StateChanger";
 }

@@ -47,11 +47,12 @@ public class AIMovement : Singleton<AIMovement>
         yellowMax = 29;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         AIBodyPos = AIBody.transform.position;
 
         ReleaseRay();
+        //AIOnStateChange();
         SetTarget();
     }
 
@@ -205,8 +206,54 @@ public class AIMovement : Singleton<AIMovement>
         }
     }
 
-    public void AIOnStateChange()
+    public void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag(GameConstant.STATECHANGER_TAG) &&  AIManager.Ins.IsRedState(RedAIState.SecondState) == true)
+        {
+            redMin = 30;
+            redMax = 59;
+            currentPoint = Random.Range(redMin,redMax);
+            redReachLimit = false;
+        }
         
+        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsRedState(RedAIState.ThirdState) == true)
+        {
+            redMin = 60;
+            redMax = 89;
+            currentPoint = Random.Range(redMin, redMax);
+            redReachLimit = false;
+        }
+
+        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.SecondState) == true)
+        {
+            greenMin = 30;
+            greenMax = 59;
+            currentPoint = Random.Range(greenMin, greenMax);
+            greenReachLimit = false;
+        }
+        
+        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.ThirdState) == true)
+        {
+            greenMin = 60;
+            greenMax = 89;
+            currentPoint = Random.Range(greenMin, greenMax);
+            greenReachLimit = false;
+        }
+
+        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.SecondState) == true)
+        {
+            yellowMin = 30;
+            yellowMax = 59;
+            currentPoint = Random.Range(yellowMin, yellowMax);
+            yellowReachLimit = false;
+        }
+        
+        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.ThirdState) == true)
+        {
+            yellowMin = 60;
+            yellowMax = 89;
+            currentPoint = Random.Range(yellowMin, yellowMax);
+            yellowReachLimit = false;
+        }
     }
 }
