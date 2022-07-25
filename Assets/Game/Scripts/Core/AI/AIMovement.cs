@@ -52,7 +52,6 @@ public class AIMovement : Singleton<AIMovement>
         AIBodyPos = AIBody.transform.position;
 
         ReleaseRay();
-        //AIOnStateChange();
         SetTarget();
     }
 
@@ -80,11 +79,7 @@ public class AIMovement : Singleton<AIMovement>
     public void AIComeBridge(List<GameObject> BrickHolder)
     {
         if(BrickHolder.Count == 0)
-        {
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, 180, ref turnVelocity, turnTime);
-            gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
-            
+        {            
             switch (gameObject.tag)
             {
                 case GameConstant.RED_TAG:
@@ -100,7 +95,6 @@ public class AIMovement : Singleton<AIMovement>
                     break;
 
                 default:
-                    Debug.Log("ErrorNav");
                     break;
             }
         }
@@ -146,11 +140,6 @@ public class AIMovement : Singleton<AIMovement>
     protected void RunAnim()
     {
         MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
-    }
-
-    protected void Idle()
-    {
-        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
     }
 
     public void ReleaseRay()
@@ -208,52 +197,74 @@ public class AIMovement : Singleton<AIMovement>
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag(GameConstant.STATECHANGER_TAG) &&  AIManager.Ins.IsRedState(RedAIState.SecondState) == true)
+        switch (gameObject.tag)
         {
-            redMin = 30;
-            redMax = 59;
-            currentPoint = Random.Range(redMin,redMax);
-            redReachLimit = false;
-        }
-        
-        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsRedState(RedAIState.ThirdState) == true)
-        {
-            redMin = 60;
-            redMax = 89;
-            currentPoint = Random.Range(redMin, redMax);
-            redReachLimit = false;
-        }
+            case GameConstant.RED_TAG:
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsRedState(RedAIState.SecondState) == true)
+                {
+                    AIRedChangeStateTarget(30, 59);
+                    redReachLimit = false;
+                }
 
-        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.SecondState) == true)
-        {
-            greenMin = 30;
-            greenMax = 59;
-            currentPoint = Random.Range(greenMin, greenMax);
-            greenReachLimit = false;
-        }
-        
-        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.ThirdState) == true)
-        {
-            greenMin = 60;
-            greenMax = 89;
-            currentPoint = Random.Range(greenMin, greenMax);
-            greenReachLimit = false;
-        }
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsRedState(RedAIState.ThirdState) == true)
+                {
+                    AIRedChangeStateTarget(60, 89);
+                    redReachLimit = false;
+                }
+                break;
 
-        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.SecondState) == true)
-        {
-            yellowMin = 30;
-            yellowMax = 59;
-            currentPoint = Random.Range(yellowMin, yellowMax);
-            yellowReachLimit = false;
-        }
-        
-        if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.ThirdState) == true)
-        {
-            yellowMin = 60;
-            yellowMax = 89;
-            currentPoint = Random.Range(yellowMin, yellowMax);
-            yellowReachLimit = false;
-        }
+            case GameConstant.GREEN_TAG:
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.SecondState) == true)
+                {
+                    AIGreenChangeStateTarget(30, 59);
+                    greenReachLimit = false;
+                }
+
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsGreenState(GreenAIState.ThirdState) == true)
+                {
+                    AIGreenChangeStateTarget(60, 89);
+                    greenReachLimit = false;
+                }
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.SecondState) == true)
+                {
+                    AIYellowChangeStateTarget(30, 59);
+                    yellowReachLimit = false;
+                }
+
+                if (other.CompareTag(GameConstant.STATECHANGER_TAG) && AIManager.Ins.IsYellowState(YellowAIState.ThirdState) == true)
+                {
+                    AIYellowChangeStateTarget(60, 89);
+                    yellowReachLimit = false;
+                }
+                break;
+
+            default:
+                Debug.Log("ErrorTrigger");
+                break;
+        }        
+    }
+
+    public void AIRedChangeStateTarget(int minNum, int maxNum)
+    {
+        redMin = minNum;
+        redMax = maxNum;
+        currentPoint = Random.Range(redMin, redMax);
+    }
+
+    public void AIGreenChangeStateTarget(int minNum, int maxNum)
+    {
+        greenMin = minNum;
+        greenMax = maxNum;
+        currentPoint = Random.Range(greenMin, greenMax);
+    }
+
+    public void AIYellowChangeStateTarget(int minNum, int maxNum)
+    {
+        yellowMin = minNum;
+        yellowMax = maxNum;
+        currentPoint = Random.Range(yellowMin, yellowMax);
     }
 }

@@ -8,6 +8,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
     public List<Vector3> GridBrickPos;
 
     public GameObject Holder;
+    public float height = 0.07f;
 
     ObjectPooling objPool;
 
@@ -16,7 +17,6 @@ public class PlayerInteract : Singleton<PlayerInteract>
     private void Start()
     {
         holderPos = Holder.transform.localPosition;
-        holderPos = Holder.transform.localEulerAngles;
 
         BrickHolder = new List<GameObject>();
         GridBrickPos = new List<Vector3>();
@@ -28,9 +28,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
     {
         GridBrickPos.Add(Brick.transform.localPosition);
 
-        Brick.transform.parent = Holder.transform;
+        Brick.transform.SetParent(Holder.transform);
 
-        holderPos.y += 0.07f;
+        holderPos.y += height;
         Brick.transform.localPosition = holderPos;
         Brick.transform.localEulerAngles = holderPos;
 
@@ -43,7 +43,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
         GameObject lastElement = BrickHolder[BrickHolder.Count -1];
         Vector3 lastPosElement = GridBrickPos[GridBrickPos.Count - 1];
 
-        BrickHolder[BrickHolder.Count - 1].transform.parent = null;
+        BrickHolder[BrickHolder.Count - 1].transform.SetParent(null);
 
         objPool.Despawn(tag, lastElement);
 
@@ -51,7 +51,7 @@ public class PlayerInteract : Singleton<PlayerInteract>
 
         objPool.Spawn(tag, lastPosElement, Quaternion.identity);
 
-        holderPos.y -= 0.07f;
+        holderPos.y -= height;
     }
 
     public void RemoveLastElement(GameObject lastElement, Vector3 lastPosElement)

@@ -26,7 +26,6 @@ public class StateChanger : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Error AI State");
                 break;
         }
     }

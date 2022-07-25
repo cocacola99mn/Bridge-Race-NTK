@@ -11,10 +11,12 @@ public class AIInteract : Singleton<AIInteract>
 
     ObjectPooling objPool;
 
+    public float height = 0.07f;
+
     public Vector3 RedholderPos, GreenholderPos, YellowholderPos;
 
     private void Start()
-    {            
+    {       
         RedBrickHolder = new List<GameObject>();
         RedGridBrickPos = new List<Vector3>();
         
@@ -35,19 +37,19 @@ public class AIInteract : Singleton<AIInteract>
         switch (tag)
         {
             case GameConstant.RED_TAG:
-                RedholderPos.y += 0.07f;
+                RedholderPos.y += height;
                 Brick.transform.localPosition = RedholderPos;
                 Brick.transform.localEulerAngles = RedholderPos;
                 break;
 
             case GameConstant.GREEN_TAG:
-                GreenholderPos.y += 0.07f;
+                GreenholderPos.y += height;
                 Brick.transform.localPosition = GreenholderPos;
                 Brick.transform.localEulerAngles = GreenholderPos;
                 break;
 
             case GameConstant.YELLOW_TAG:
-                YellowholderPos.y += 0.07f;
+                YellowholderPos.y += height;
                 Brick.transform.localPosition = YellowholderPos;
                 Brick.transform.localEulerAngles = YellowholderPos;
                 break;
@@ -77,15 +79,15 @@ public class AIInteract : Singleton<AIInteract>
         switch (tag)
         {
             case GameConstant.RED_TAG:
-                RedholderPos.y -= 0.07f;
+                RedholderPos.y -= height;
                 break;
 
             case GameConstant.GREEN_TAG:
-                GreenholderPos.y -= 0.07f;
+                GreenholderPos.y -= height;
                 break;
 
             case GameConstant.YELLOW_TAG:
-                YellowholderPos.y -= 0.07f;
+                YellowholderPos.y -= height;
                 break;
 
             default:
