@@ -8,5 +8,13 @@ public class GameManager : Singleton<GameManager>
     {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
+
+        Time.timeScale = 0;
+    }
+
+    public void StartGame()
+    {
+        UIManager.Ins.ChangeUIStartGame(UIStartGame.Close);
+        Time.timeScale = 1;
     }
 }

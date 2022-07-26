@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2067145972}
   - component: {fileID: 2067145975}
   - component: {fileID: 2067145974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StateChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2541712987059943647}
   - component: {fileID: 2541712987059943641}
   - component: {fileID: 2541712987059943646}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: StateChanger
   m_TagString: StateChanger
   m_Icon: {fileID: 0}

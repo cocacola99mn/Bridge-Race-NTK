@@ -17,13 +17,13 @@ public class Player : Singleton<Player>
 
     public Animator MovementAnim;
 
-    public bool MoveForwardRestrict;
+    public bool MoveForwardRestrict,MoveBackRestrict;
 
     private void Start()
     {
         MovementAnim = GetComponent<Animator>();
 
-        MoveForwardRestrict = false;
+        MoveForwardRestrict = MoveBackRestrict = false;
     }
 
     private void Update()
@@ -57,9 +57,10 @@ public class Player : Singleton<Player>
         direction = new Vector3(horizontal, 0, vertical).normalized;
         
         if(vertical > 0 && MoveForwardRestrict == true)
-        {
             direction = Vector3.zero;
-        }
+
+        if (vertical < 0 && MoveBackRestrict == true)
+            direction = Vector3.zero;
 
     }
 
@@ -71,9 +72,10 @@ public class Player : Singleton<Player>
         direction = new Vector3(horizontal, 0, vertical).normalized;
 
         if (vertical > 0 && MoveForwardRestrict == true)
-        {
             direction = Vector3.zero;
-        }
+
+        if (vertical < 0 && MoveBackRestrict == true)
+            direction = Vector3.zero;
     }
 
     public void PlayerRotation(Vector3 direction)

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RedAIState { FirstState, SecondState, ThirdState, Win }
-public enum GreenAIState { FirstState, SecondState, ThirdState, Win }
-public enum YellowAIState { FirstState, SecondState, ThirdState, Win }
+public enum RedAIState { FirstState, SecondState, ThirdState }
+public enum GreenAIState { FirstState, SecondState, ThirdState }
+public enum YellowAIState { FirstState, SecondState, ThirdState }
 public class AIManager : Singleton<AIManager>
 {
     private RedAIState redAIState;

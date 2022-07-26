@@ -100,8 +100,7 @@ public class AIMovement : Singleton<AIMovement>
         }
         else
         {
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, 0, ref turnVelocity, turnTime);
-            gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             gameObject.transform.Translate(Vector3.forward * AISpeed * Time.deltaTime);
         }        
     }

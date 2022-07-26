@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum LevelState { FirstState, SecondState, ThirdState, Win}
+public enum LevelState { FirstState, SecondState, ThirdState, Win, Lose}
 public class LevelManager : Singleton<LevelManager>
 {
     private LevelState gameState;
@@ -13,18 +13,22 @@ public class LevelManager : Singleton<LevelManager>
 
         switch (gameState)
         {
-            case LevelState.FirstState:
-                Debug.Log("1");
-                break;
             case LevelState.SecondState:
                 Debug.Log("2");
                 break;
+            
             case LevelState.ThirdState:
                 Debug.Log("3");
                 break;
+            
             case LevelState.Win:
-                Debug.Log("4");
+                Debug.Log("Win");
                 break;
+            
+            case LevelState.Lose:
+                Debug.Log("Lose");
+                break;
+            
             default:
                 Debug.Log("Invalid State");
                 break;

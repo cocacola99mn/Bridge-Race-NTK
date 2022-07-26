@@ -15,9 +15,9 @@ public class BridgeRaycast : MonoBehaviour
     private Material BrickMaterial;
 
     [SerializeField]
-    private LayerMask bridgeStairLayer;
+    private LayerMask bridgeStairLayer,stateChangerLayer;
     
-    Vector3 MovementRestrictDirection,DropBrickDirection,RayPosition;
+    Vector3 MovementBackwardDirection,MovementForwardDirection,DropBrickDirection,RayPosition;
 
     PlayerInteract Interact;
     Player playerIns;
@@ -25,7 +25,8 @@ public class BridgeRaycast : MonoBehaviour
     void Start()
     {
         DropBrickDirection =  Quaternion.Euler(-50,0,0) * Vector3.down * range;
-        MovementRestrictDirection = Vector3.forward * range;
+        MovementForwardDirection = Vector3.forward * range;
+        MovementBackwardDirection = -Vector3.forward * range;
         
         Interact = PlayerInteract.Ins;
         playerIns = Player.Ins;
@@ -37,7 +38,8 @@ public class BridgeRaycast : MonoBehaviour
         
         DropBrickRay();
         
-        MovementRestrictRay();
+        MoveForwardRestrictRay();
+        MoveBackwardRestrictRay();
     }
 
     public void DropBrickRay()
@@ -83,11 +85,11 @@ public class BridgeRaycast : MonoBehaviour
         }
     }
 
-    public void MovementRestrictRay()
+    public void MoveForwardRestrictRay()
     {
-        Ray ray = new Ray(RayPosition, MovementRestrictDirection);
+        Ray ray = new Ray(RayPosition, MovementForwardDirection);
         RaycastHit hit;
-        Debug.DrawRay(RayPosition, MovementRestrictDirection);
+        Debug.DrawRay(RayPosition, MovementForwardDirection);
 
         if (Physics.Raycast(ray, out hit, range, bridgeStairLayer))
         {
@@ -103,6 +105,21 @@ public class BridgeRaycast : MonoBehaviour
             {
                 playerIns.MoveForwardRestrict = false;
             }
+        }
+    }
+
+    public void MoveBackwardRestrictRay()
+    {
+        Ray ray = new Ray(RayPosition, MovementBackwardDirection);
+        RaycastHit hit;
+        Debug.DrawRay(RayPosition, MovementBackwardDirection);
+
+        if (Physics.Raycast(ray, out hit, range, stateChangerLayer))
+        {
+            if (hit.distance < 0.2)
+                playerIns.MoveBackRestrict = true;
+            else
+                playerIns.MoveBackRestrict = false;
         }
     }
 
