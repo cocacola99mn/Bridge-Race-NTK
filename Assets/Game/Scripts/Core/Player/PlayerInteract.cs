@@ -59,4 +59,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
         BrickHolder.Remove(lastElement);
         GridBrickPos.Remove(lastPosElement);
     }
+
+    public void RemoveAllElement()
+    {
+        Holder.SetActive(false);
+    }
 }

@@ -46,7 +46,9 @@ public class LevelManager : Singleton<LevelManager>
     {
         Player.Ins.OnFinish = true;
         Player.Ins.MovementAnim.enabled = false;
-        
+
+        PlayerInteract.Ins.RemoveAllElement();
+
         ThePlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
         ThePlayer.transform.position = new Vector3(0, 16.7f, 44.7f);
 
