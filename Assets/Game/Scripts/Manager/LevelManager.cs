@@ -7,7 +7,7 @@ public class LevelManager : Singleton<LevelManager>
 {
     public GameObject ThePlayer, RedAI, GreenAI;
     private LevelState gameState;
-    
+
     public void ChangeGameState(LevelState gameState)
     {
         this.gameState = gameState;
@@ -15,18 +15,13 @@ public class LevelManager : Singleton<LevelManager>
         switch (gameState)
         {
             case LevelState.SecondState:
-                Debug.Log("2");
                 break;
             
             case LevelState.ThirdState:
-                Debug.Log("3");
                 break;
             
             case LevelState.Win:
-                Player.Ins.OnFinish = true;
-                Player.Ins.MovementAnim.enabled = false;
-                ThePlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
-                ThePlayer.gameObject.transform.position = new Vector3(0, 15, 44.2f);
+                OnWin();
                 break;
             
             case LevelState.Lose:
@@ -45,5 +40,19 @@ public class LevelManager : Singleton<LevelManager>
             return true;
         else
             return false;
+    }
+
+    public void OnWin()
+    {
+        Player.Ins.OnFinish = true;
+        Player.Ins.MovementAnim.enabled = false;
+        
+        ThePlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
+        ThePlayer.transform.position = new Vector3(0, 16.7f, 44.7f);
+
+        RedAI.SetActive(true);
+        GreenAI.SetActive(true);
+
+        UIManager.Ins.ChangeUIVictory(UIVictory.Open);
     }
 }

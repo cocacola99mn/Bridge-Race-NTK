@@ -8,7 +8,6 @@ public class GameManager : Singleton<GameManager>
     {
         Application.targetFrameRate = 60;
         Input.multiTouchEnabled = false;
-
         Time.timeScale = 0;
     }
 

@@ -52,7 +52,11 @@ public class AIMovement : Singleton<AIMovement>
         AIBodyPos = AIBody.transform.position;
 
         ReleaseRay();
-        SetTarget();
+
+        if (LevelManager.Ins.IsState(LevelState.Win) == false)
+            SetTarget();
+        else
+            gameObject.SetActive(false);
     }
 
     public void AIMove(List<Vector3> target,int min, int max)
