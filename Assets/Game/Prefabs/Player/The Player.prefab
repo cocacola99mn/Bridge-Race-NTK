@@ -1410,6 +1410,7 @@ GameObject:
   - component: {fileID: 6988572268640414336}
   - component: {fileID: 919132148790534461}
   - component: {fileID: 919132148790534465}
+  - component: {fileID: 1458178570}
   m_Layer: 0
   m_Name: The Player
   m_TagString: Blue
@@ -1444,7 +1445,7 @@ Animator:
   m_GameObject: {fileID: 7799404020505814814}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6441cf373afba4b48885048787eef075, type: 2}
+  m_Controller: {fileID: 9100000, guid: a1b614f2707cc634e9eb534774d2dee5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1486,9 +1487,11 @@ MonoBehaviour:
   controller: {fileID: 6988572268640414339}
   PlayerSpeed: 1.5
   turnTime: 0.05
-  MovementAnim: {fileID: 0}
+  MovementAnim: {fileID: 3573308174159914974}
+  DancingAnim: {fileID: 1458178570}
   MoveForwardRestrict: 0
   MoveBackRestrict: 0
+  OnFinish: 0
 --- !u!114 &919132148790534461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1525,6 +1528,22 @@ MonoBehaviour:
   stateChangerLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!111 &1458178570
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799404020505814814}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &7876176226659461227
 GameObject:
   m_ObjectHideFlags: 0

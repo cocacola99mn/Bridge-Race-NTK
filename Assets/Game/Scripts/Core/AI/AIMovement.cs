@@ -138,7 +138,8 @@ public class AIMovement : Singleton<AIMovement>
 
     protected void RunAnim()
     {
-        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
+        MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
+        MovementAnim.SetTrigger(GameConstant.RUN_ANIM);
     }
 
     public void ReleaseRay()

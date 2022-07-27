@@ -5,6 +5,7 @@ using UnityEngine;
 public enum LevelState { FirstState, SecondState, ThirdState, Win, Lose}
 public class LevelManager : Singleton<LevelManager>
 {
+    public GameObject ThePlayer, RedAI, GreenAI;
     private LevelState gameState;
     
     public void ChangeGameState(LevelState gameState)
@@ -22,7 +23,10 @@ public class LevelManager : Singleton<LevelManager>
                 break;
             
             case LevelState.Win:
-                Debug.Log("Win");
+                Player.Ins.OnFinish = true;
+                Player.Ins.MovementAnim.enabled = false;
+                ThePlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
+                ThePlayer.gameObject.transform.position = new Vector3(0, 15, 44.2f);
                 break;
             
             case LevelState.Lose:

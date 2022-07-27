@@ -4651,6 +4651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018c1171220b5684caf56bbe91c950d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThePlayer: {fileID: 1458178569}
+  RedAI: {fileID: 880226751}
+  GreenAI: {fileID: 1874941196}
 --- !u!4 &496066297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4190780977390553849, guid: b9b52fcf43488b94da0469a6561408de, type: 3}
@@ -15557,6 +15560,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4190780977390553849, guid: b9b52fcf43488b94da0469a6561408de, type: 3}
   m_PrefabInstance: {fileID: 149344945}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1458178569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7799404020505814814, guid: 9c6bf1de30225814b8895a166557db0c, type: 3}
+  m_PrefabInstance: {fileID: 6988572270533641762}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1460057639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22068,7 +22076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7429787610302968988, guid: 63d3f4ed2409c8c41b1f389420aa4d2a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 43.636
+      value: 43.9
       objectReference: {fileID: 0}
     - target: {fileID: 7429787610302968988, guid: 63d3f4ed2409c8c41b1f389420aa4d2a, type: 3}
       propertyPath: m_LocalRotation.w

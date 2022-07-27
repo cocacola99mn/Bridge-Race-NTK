@@ -16,19 +16,23 @@ public class Player : Singleton<Player>
     protected Vector3 direction;
 
     public Animator MovementAnim;
+    public Animation DancingAnim;
 
-    public bool MoveForwardRestrict,MoveBackRestrict;
+    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish;
 
     private void Start()
     {
-        MovementAnim = GetComponent<Animator>();
-
         MoveForwardRestrict = MoveBackRestrict = false;
+
+        OnFinish = false;
     }
 
     private void Update()
     {
-        PlayerMovement();
+        if (OnFinish == false)
+            PlayerMovement();
+        else
+            Dancing();
     }
     
     public void PlayerMovement()
@@ -87,11 +91,18 @@ public class Player : Singleton<Player>
 
     public void RunAnim()
     {
-        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 1);
+        MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
+        MovementAnim.SetTrigger(GameConstant.RUN_ANIM);
     }
 
     public void Idle()
     {
-        MovementAnim.SetFloat(GameConstant.SPEED_PARA, 0.1f);
+        MovementAnim.ResetTrigger(GameConstant.RUN_ANIM);
+        MovementAnim.SetTrigger(GameConstant.IDLE_ANIM);
+    }
+
+    public void Dancing()
+    {
+        DancingAnim.Play();
     }
 }

@@ -14,8 +14,11 @@ public static class GameConstant
     public const string STATE2_TAG = "State2";
 
     public const string STAIR_TAG = "Stair";
-    public const string SPEED_PARA = "Speed";
     public const string PLAYER_TAG = "Player";
     public const string LASTHITOBJECT_TAG = "LastHitObject";
     public const string STATECHANGER_TAG = "StateChanger";
+
+    public const string RUN_ANIM = "Run";
+    public const string IDLE_ANIM = "Idle";
+    public const string DANCE_ANIM = "Dancing";
 }
