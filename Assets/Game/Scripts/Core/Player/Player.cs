@@ -36,10 +36,14 @@ public class Player : Singleton<Player>
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Collided && Time.time >= FallTime)
-            Collided = false;  
+        {
+            controller.enabled = true;
+            Collided = false;
+        }
+              
             
 
         if (OnFinish == false && Collided == false)
@@ -106,7 +110,7 @@ public class Player : Singleton<Player>
     private void OnCollisionEnter(Collision other)
     {
         if(Collided == false)
-        FallCondition(other.gameObject);
+            FallCondition(other.gameObject);
     }
 
     public void FallCondition(GameObject other)
@@ -151,8 +155,10 @@ public class Player : Singleton<Player>
     public void Fall()
     {
         FallTime = Time.time + 5f;
+        interact.OnFall(GameConstant.BLUE_TAG);
         MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
         MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
-        Collided = true;
+        controller.enabled = false;
+        Collided = true;        
     }
 }

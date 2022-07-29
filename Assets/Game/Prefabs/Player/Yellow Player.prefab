@@ -1648,6 +1648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIBody: {fileID: 8358447459834125054}
+  AICollider: {fileID: 478756521}
   AIBridgeNav:
     serializedVersion: 2
     m_Bits: 64
@@ -1664,9 +1665,11 @@ MonoBehaviour:
   TPRadius: 0
   turnVelocity: 0
   turnTime: 0
+  MovementAnim: {fileID: 1714605453}
   redReachLimit: 0
   greenReachLimit: 0
   yellowReachLimit: 0
+  Collided: 0
 --- !u!95 &1714605453
 Animator:
   serializedVersion: 3
@@ -1713,9 +1716,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.05
-  m_Height: 0.53743994
+  m_Height: 0.5034685
   m_Direction: 1
-  m_Center: {x: 0, y: 0.23128012, z: 0}
+  m_Center: {x: 0, y: 0.24826585, z: 0}
 --- !u!114 &478756517
 MonoBehaviour:
   m_ObjectHideFlags: 0

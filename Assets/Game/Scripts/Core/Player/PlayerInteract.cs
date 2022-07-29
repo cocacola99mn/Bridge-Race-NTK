@@ -46,10 +46,9 @@ public class PlayerInteract : Singleton<PlayerInteract>
         BrickHolder[BrickHolder.Count - 1].transform.SetParent(null);
 
         objPool.Despawn(tag, lastElement);
+        objPool.Spawn(tag, lastPosElement, Quaternion.identity);
 
         RemoveLastElement(lastElement,lastPosElement);
-
-        objPool.Spawn(tag, lastPosElement, Quaternion.identity);
 
         holderPos.y -= height;
     }
@@ -63,5 +62,20 @@ public class PlayerInteract : Singleton<PlayerInteract>
     public void RemoveAllElement()
     {
         Holder.SetActive(false);
+    }
+
+    public void OnFall(string tag)
+    {
+        for(int i = BrickHolder.Count - 1; i >= 0; i--)
+        {
+            BrickHolder[i].transform.SetParent(null);
+            objPool.Despawn(tag, BrickHolder[i]);
+            objPool.Spawn(tag, GridBrickPos[i], Quaternion.identity);
+            
+            holderPos.y -= height;
+        }
+
+        GridBrickPos.Clear();
+        BrickHolder.Clear();
     }
 }

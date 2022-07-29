@@ -111,4 +111,55 @@ public class AIInteract : Singleton<AIInteract>
 
         return RaycastOn;
     }
+
+    public void OnFall(string tag)
+    {
+        switch (tag)
+        {
+            case GameConstant.RED_TAG:
+                for (int i = RedBrickHolder.Count - 1; i >= 0; i--)
+                {
+                    RedBrickHolder[i].transform.SetParent(null);
+                    objPool.Despawn(tag, RedBrickHolder[i]);
+                    objPool.Spawn(tag, RedGridBrickPos[i], Quaternion.identity);
+
+                    RedholderPos.y -= height;
+                }
+
+                RedGridBrickPos.Clear();
+                RedBrickHolder.Clear();
+                break;
+
+            case GameConstant.GREEN_TAG:
+                for (int i = GreenBrickHolder.Count - 1; i >= 0; i--)
+                {
+                    GreenBrickHolder[i].transform.SetParent(null);
+                    objPool.Despawn(tag, GreenBrickHolder[i]);
+                    objPool.Spawn(tag, GreenGridBrickPos[i], Quaternion.identity);
+
+                    GreenholderPos.y -= height;
+                }
+
+                GreenGridBrickPos.Clear();
+                GreenBrickHolder.Clear();
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                for (int i = YellowBrickHolder.Count - 1; i >= 0; i--)
+                {
+                    YellowBrickHolder[i].transform.SetParent(null);
+                    objPool.Despawn(tag, YellowBrickHolder[i]);
+                    objPool.Spawn(tag, YellowGridBrickPos[i], Quaternion.identity);
+
+                    YellowholderPos.y -= height;
+                }
+
+                YellowGridBrickPos.Clear();
+                YellowBrickHolder.Clear();
+                break;
+
+            default:
+                break;
+        }
+    }
 }

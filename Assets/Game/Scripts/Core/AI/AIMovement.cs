@@ -5,6 +5,7 @@ using UnityEngine;
 public class AIMovement : Singleton<AIMovement>
 {
     public GameObject AIBody;
+    public Collider AICollider;
 
     private float range = 10f;
 
@@ -18,16 +19,21 @@ public class AIMovement : Singleton<AIMovement>
     public float AISpeed, TPRadius, turnVelocity ,turnTime;
 
     AITargetPoint aITargetPoint;
+    AIInteract aIInteract;
     
     public Animator MovementAnim;
 
-    public bool redReachLimit, greenReachLimit, yellowReachLimit;
+    public bool redReachLimit, greenReachLimit, yellowReachLimit, Collided;
+
+    private float FallTime;
 
     public void Start()
     {
         MovementAnim.enabled = false;
         ForwardDirection = Vector3.forward * range;
+        
         aITargetPoint = AITargetPoint.Ins;
+        aIInteract = AIInteract.Ins;
         
         SetTarget();
         
@@ -37,6 +43,7 @@ public class AIMovement : Singleton<AIMovement>
         redReachLimit = false;
         greenReachLimit = false;
         yellowReachLimit = false;
+        Collided = false;
 
         currentPoint = 0;
         redMin = 0;
@@ -49,6 +56,12 @@ public class AIMovement : Singleton<AIMovement>
 
     private void FixedUpdate()
     {
+        if (Collided && Time.time >= FallTime)
+        {
+            AICollider.enabled = true;
+            Collided = false;
+        }                
+
         AIBodyPos = AIBody.transform.position;
 
         ReleaseRay();
@@ -56,11 +69,9 @@ public class AIMovement : Singleton<AIMovement>
         if (Time.timeScale > 0)
             MovementAnim.enabled = true;
 
-        if (LevelManager.Ins.IsState(LevelState.Win) == false)
-        {
-            SetTarget();
-        }            
-        else
+        if (LevelManager.Ins.IsState(LevelState.Win) == false && Collided == false)
+            SetTarget();        
+        else if(LevelManager.Ins.IsState(LevelState.Win) == true)
             gameObject.SetActive(false);
     }
 
@@ -122,21 +133,21 @@ public class AIMovement : Singleton<AIMovement>
                 if (redReachLimit == false)
                     AIMove(aITargetPoint.RedTarget,redMin,redMax);
                 else
-                    AIComeBridge(AIInteract.Ins.RedBrickHolder);
+                    AIComeBridge(aIInteract.RedBrickHolder);
                 break;
 
             case GameConstant.GREEN_TAG:
                 if (greenReachLimit == false)
                     AIMove(aITargetPoint.GreenTarget,greenMin,greenMax);
                 else
-                    AIComeBridge(AIInteract.Ins.GreenBrickHolder);
+                    AIComeBridge(aIInteract.GreenBrickHolder);
                 break;
 
             case GameConstant.YELLOW_TAG:
                 if (yellowReachLimit == false)
                     AIMove(aITargetPoint.YellowTarget,yellowMin,yellowMax);
                 else
-                    AIComeBridge(AIInteract.Ins.YellowBrickHolder);
+                    AIComeBridge(aIInteract.YellowBrickHolder);
                 break;
 
             default:
@@ -145,28 +156,22 @@ public class AIMovement : Singleton<AIMovement>
         }
     }
 
-    protected void RunAnim()
-    {
-        MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
-        MovementAnim.SetTrigger(GameConstant.RUN_ANIM);
-    }
-
     public void ReleaseRay()
     {
         switch (gameObject.tag)
         {
             case GameConstant.RED_TAG:
-                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.RedBrickHolder) == true)
+                if (aIInteract.AIHolderLitmit(aIInteract.RedBrickHolder) == true)
                     NavigateRay();
                 break;
 
             case GameConstant.GREEN_TAG:
-                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.GreenBrickHolder) == true)
+                if (aIInteract.AIHolderLitmit(aIInteract.GreenBrickHolder) == true)
                     NavigateRay();
                 break;
 
             case GameConstant.YELLOW_TAG:
-                if (AIInteract.Ins.AIHolderLitmit(AIInteract.Ins.YellowBrickHolder) == true)
+                if (aIInteract.AIHolderLitmit(aIInteract.YellowBrickHolder) == true)
                     NavigateRay();
                 break;
 
@@ -279,6 +284,74 @@ public class AIMovement : Singleton<AIMovement>
 
     public void OnCollisionEnter(Collision other)
     {
-        
+        if (Collided == false)
+            FallCondition(other.gameObject);
+    }
+
+    public void FallCondition(GameObject other)
+    {
+        switch (gameObject.tag)
+        {
+            case GameConstant.RED_TAG:
+                FallCondition2(GameConstant.RED_TAG,other, aIInteract.RedBrickHolder.Count);
+                break;
+
+            case GameConstant.GREEN_TAG:
+                FallCondition2(GameConstant.GREEN_TAG,other, aIInteract.GreenBrickHolder.Count);
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                FallCondition2(GameConstant.YELLOW_TAG,other, aIInteract.YellowBrickHolder.Count);
+                break;
+
+            default:
+                Debug.Log("Error Fall Object");
+                break;
+        }
+    }
+
+    public void FallCondition2(string tag,GameObject other, int counter)
+    {
+        switch (other.tag)
+        {
+            case GameConstant.BLUE_TAG:
+                if (counter < PlayerInteract.Ins.BrickHolder.Count)
+                    Fall(tag);
+                break;
+
+            case GameConstant.RED_TAG:
+                if (counter < aIInteract.RedBrickHolder.Count)
+                    Fall(tag);
+                break;
+
+            case GameConstant.GREEN_TAG:
+                if (counter < aIInteract.GreenBrickHolder.Count)
+                    Fall(tag);
+                break;
+
+            case GameConstant.YELLOW_TAG:
+                if (counter < aIInteract.YellowBrickHolder.Count)
+                    Fall(tag);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    protected void RunAnim()
+    {
+        MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
+        MovementAnim.SetTrigger(GameConstant.RUN_ANIM);
+    }
+
+    public void Fall(string tag)
+    {
+        FallTime = Time.time + 5f;
+        MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
+        MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
+        aIInteract.OnFall(tag);
+        AICollider.enabled = false;
+        Collided = true;
     }
 }
