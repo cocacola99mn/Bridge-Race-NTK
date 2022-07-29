@@ -19,14 +19,14 @@ public class AIMovement : Singleton<AIMovement>
 
     AITargetPoint aITargetPoint;
     
-    private Animator MovementAnim;
+    public Animator MovementAnim;
 
     public bool redReachLimit, greenReachLimit, yellowReachLimit;
-    
+
     public void Start()
     {
+        MovementAnim.enabled = false;
         ForwardDirection = Vector3.forward * range;
-        MovementAnim = GetComponent<Animator>();
         aITargetPoint = AITargetPoint.Ins;
         
         SetTarget();
@@ -53,8 +53,13 @@ public class AIMovement : Singleton<AIMovement>
 
         ReleaseRay();
 
+        if (Time.timeScale > 0)
+            MovementAnim.enabled = true;
+
         if (LevelManager.Ins.IsState(LevelState.Win) == false)
+        {
             SetTarget();
+        }            
         else
             gameObject.SetActive(false);
     }

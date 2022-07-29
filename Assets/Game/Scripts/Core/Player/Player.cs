@@ -103,6 +103,6 @@ public class Player : Singleton<Player>
 
     public void Dancing()
     {
-        DancingAnim.Play();
+        DancingAnim.Play(GameConstant.DANCE_ANIM);
     }
 }

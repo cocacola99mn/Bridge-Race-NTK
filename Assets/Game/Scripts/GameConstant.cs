@@ -20,5 +20,5 @@ public static class GameConstant
 
     public const string RUN_ANIM = "Run";
     public const string IDLE_ANIM = "Idle";
-    public const string DANCE_ANIM = "Dancing";
+    public const string DANCE_ANIM = "Armature_Dance7";
 }
