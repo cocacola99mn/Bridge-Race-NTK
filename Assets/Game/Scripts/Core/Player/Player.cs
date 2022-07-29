@@ -22,7 +22,7 @@ public class Player : Singleton<Player>
     public Animator MovementAnim;
     public Animation DancingAnim;
 
-    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish, Collided;
+    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish, Collided, IsOnBridge;
 
     private void Start()
     {
@@ -109,7 +109,7 @@ public class Player : Singleton<Player>
 
     private void OnCollisionEnter(Collision other)
     {
-        if(Collided == false)
+        if(Collided == false && IsOnBridge == false)
             FallCondition(other.gameObject);
     }
 

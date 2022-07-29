@@ -1473,6 +1473,7 @@ MonoBehaviour:
   MoveForwardRestrict: 0
   MoveBackRestrict: 0
   OnFinish: 0
+  Collided: 0
 --- !u!114 &919132148790534461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1509,6 +1510,9 @@ MonoBehaviour:
   stateChangerLayer:
     serializedVersion: 2
     m_Bits: 128
+  roadLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &3573308174159914974
 Animator:
   serializedVersion: 3
@@ -1540,8 +1544,6 @@ Animation:
   m_Animation: {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
-  - {fileID: 7400000, guid: d8543a29c640cfb4b830afe7f97329a0, type: 2}
-  - {fileID: 7400000, guid: 4a591957834a1864185ca5ee57514cfb, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

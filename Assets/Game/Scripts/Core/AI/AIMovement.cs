@@ -10,9 +10,9 @@ public class AIMovement : Singleton<AIMovement>
     private float range = 10f;
 
     [SerializeField]
-    private LayerMask AIBridgeNav;
+    private LayerMask AIBridgeNav, roadLayer;
 
-    public Vector3 AIBodyPos,ForwardDirection;
+    public Vector3 AIBodyPos,ForwardDirection,OnRoadRay;
     
     public int currentPoint, redMin,redMax,greenMin,greenMax,yellowMin,yellowMax;
     
@@ -23,7 +23,7 @@ public class AIMovement : Singleton<AIMovement>
     
     public Animator MovementAnim;
 
-    public bool redReachLimit, greenReachLimit, yellowReachLimit, Collided;
+    public bool redReachLimit, greenReachLimit, yellowReachLimit, Collided, IsOnBridge;
 
     private float FallTime;
 
@@ -31,6 +31,7 @@ public class AIMovement : Singleton<AIMovement>
     {
         MovementAnim.enabled = false;
         ForwardDirection = Vector3.forward * range;
+        OnRoadRay = -Vector3.up * range;
         
         aITargetPoint = AITargetPoint.Ins;
         aIInteract = AIInteract.Ins;
@@ -56,6 +57,8 @@ public class AIMovement : Singleton<AIMovement>
 
     private void FixedUpdate()
     {
+        
+        
         if (Collided && Time.time >= FallTime)
         {
             AICollider.enabled = true;
@@ -63,8 +66,8 @@ public class AIMovement : Singleton<AIMovement>
         }                
 
         AIBodyPos = AIBody.transform.position;
-
         ReleaseRay();
+        ShootOnRoadRay();
 
         if (Time.timeScale > 0)
             MovementAnim.enabled = true;
@@ -293,15 +296,18 @@ public class AIMovement : Singleton<AIMovement>
         switch (gameObject.tag)
         {
             case GameConstant.RED_TAG:
-                FallCondition2(GameConstant.RED_TAG,other, aIInteract.RedBrickHolder.Count);
+                if(IsOnBridge == false)
+                    FallCondition2(GameConstant.RED_TAG,other, aIInteract.RedBrickHolder.Count);
                 break;
 
             case GameConstant.GREEN_TAG:
-                FallCondition2(GameConstant.GREEN_TAG,other, aIInteract.GreenBrickHolder.Count);
+                if (IsOnBridge == false)
+                    FallCondition2(GameConstant.GREEN_TAG,other, aIInteract.GreenBrickHolder.Count);
                 break;
 
             case GameConstant.YELLOW_TAG:
-                FallCondition2(GameConstant.YELLOW_TAG,other, aIInteract.YellowBrickHolder.Count);
+                if (IsOnBridge == false)
+                    FallCondition2(GameConstant.YELLOW_TAG,other, aIInteract.YellowBrickHolder.Count);
                 break;
 
             default:
@@ -348,10 +354,33 @@ public class AIMovement : Singleton<AIMovement>
     public void Fall(string tag)
     {
         FallTime = Time.time + 5f;
+        
         MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
         MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
+        
         aIInteract.OnFall(tag);
+        
         AICollider.enabled = false;
+        
         Collided = true;
+    }
+
+    public void ShootOnRoadRay()
+    {
+        Ray ray = new Ray(AIBodyPos, OnRoadRay);
+        RaycastHit hit;
+        Debug.DrawRay(AIBodyPos, OnRoadRay);
+
+        if (Physics.Raycast(ray, out hit, range, roadLayer))
+        {
+            AICollider.enabled = false;
+            IsOnBridge = true;
+        }
+        else
+        {
+            AICollider.enabled = true;
+            IsOnBridge = false;
+        }
+            
     }
 }

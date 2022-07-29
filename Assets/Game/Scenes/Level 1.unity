@@ -22644,10 +22644,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1458178570, guid: 9c6bf1de30225814b8895a166557db0c, type: 3}
-      propertyPath: m_Animations.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7455388188743368100, guid: 9c6bf1de30225814b8895a166557db0c, type: 3}
       propertyPath: m_RootOrder
       value: 3

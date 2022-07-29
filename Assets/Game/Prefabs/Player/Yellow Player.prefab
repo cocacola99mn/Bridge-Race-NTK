@@ -1652,8 +1652,12 @@ MonoBehaviour:
   AIBridgeNav:
     serializedVersion: 2
     m_Bits: 64
+  roadLayer:
+    serializedVersion: 2
+    m_Bits: 256
   AIBodyPos: {x: 0, y: 0, z: 0}
   ForwardDirection: {x: 0, y: 0, z: 0}
+  OnRoadRay: {x: 0, y: 0, z: 0}
   currentPoint: 0
   redMin: 0
   redMax: 0
@@ -1670,6 +1674,7 @@ MonoBehaviour:
   greenReachLimit: 0
   yellowReachLimit: 0
   Collided: 0
+  IsOnBridge: 0
 --- !u!95 &1714605453
 Animator:
   serializedVersion: 3
@@ -1734,6 +1739,8 @@ MonoBehaviour:
   RedAI: {fileID: 0}
   GreenAI: {fileID: 0}
   YellowAI: {fileID: 8358447459834125054}
+  AICollider: {fileID: 478756521}
+  AIRigidbody: {fileID: 478756516}
   BrickMaterial: {fileID: 2100000, guid: 5d57cd667598faf4789fb03c8102aecd, type: 2}
   bridgeStairLayer:
     serializedVersion: 2

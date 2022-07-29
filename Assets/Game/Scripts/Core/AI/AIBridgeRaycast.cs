@@ -7,6 +7,8 @@ public class AIBridgeRaycast : MonoBehaviour
     private float range = 10f;
 
     public GameObject RedAI, GreenAI, YellowAI;
+    public Collider AICollider;
+    public Rigidbody AIRigidbody;
     
     Renderer selectChildRenderer;
     Transform select;

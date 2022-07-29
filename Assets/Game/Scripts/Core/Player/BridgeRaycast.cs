@@ -15,9 +15,9 @@ public class BridgeRaycast : MonoBehaviour
     private Material BrickMaterial;
 
     [SerializeField]
-    private LayerMask bridgeStairLayer,stateChangerLayer;
+    private LayerMask bridgeStairLayer,stateChangerLayer,roadLayer;
     
-    Vector3 MovementBackwardDirection,MovementForwardDirection,DropBrickDirection,RayPosition;
+    Vector3 MovementBackwardDirection,MovementForwardDirection,DropBrickDirection,RayPosition, OnRoadRay;
 
     PlayerInteract Interact;
     Player playerIns;
@@ -27,6 +27,7 @@ public class BridgeRaycast : MonoBehaviour
         DropBrickDirection =  Quaternion.Euler(-50,0,0) * Vector3.down * range;
         MovementForwardDirection = Vector3.forward * range;
         MovementBackwardDirection = -Vector3.forward * range;
+        OnRoadRay =  -Vector3.up * range;
         
         Interact = PlayerInteract.Ins;
         playerIns = Player.Ins;
@@ -40,6 +41,7 @@ public class BridgeRaycast : MonoBehaviour
         
         MoveForwardRestrictRay();
         MoveBackwardRestrictRay();
+        ShootOnRoadRay();
     }
 
     public void DropBrickRay()
@@ -129,5 +131,17 @@ public class BridgeRaycast : MonoBehaviour
             playerIns.MoveForwardRestrict = false;
         else
             playerIns.MoveForwardRestrict = true;
+    }
+
+    public void ShootOnRoadRay()
+    {
+        Ray ray = new Ray(RayPosition, OnRoadRay);
+        RaycastHit hit;
+        Debug.DrawRay(RayPosition, OnRoadRay);
+
+        if (Physics.Raycast(ray, out hit, range, roadLayer))
+            playerIns.IsOnBridge = true;
+        else
+            playerIns.IsOnBridge = false;
     }
 }
