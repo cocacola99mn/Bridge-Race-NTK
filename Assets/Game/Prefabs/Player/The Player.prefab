@@ -1405,11 +1405,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7455388188743368100}
-  - component: {fileID: 3573308174159914974}
   - component: {fileID: 6988572268640414339}
   - component: {fileID: 6988572268640414336}
   - component: {fileID: 919132148790534461}
   - component: {fileID: 919132148790534465}
+  - component: {fileID: 3573308174159914974}
   - component: {fileID: 1458178570}
   m_Layer: 0
   m_Name: The Player
@@ -1435,25 +1435,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3573308174159914974
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799404020505814814}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
-  m_Controller: {fileID: 9100000, guid: a1b614f2707cc634e9eb534774d2dee5, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!143 &6988572268640414339
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1528,6 +1509,25 @@ MonoBehaviour:
   stateChangerLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!95 &3573308174159914974
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799404020505814814}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 68b19fdccf4b1aa4ab2619cd665aba3a, type: 3}
+  m_Controller: {fileID: 9100000, guid: a1b614f2707cc634e9eb534774d2dee5, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!111 &1458178570
 Animation:
   m_ObjectHideFlags: 0
@@ -1540,6 +1540,8 @@ Animation:
   m_Animation: {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: fa4e857bf5ba2e543906df33904cb80e, type: 2}
+  - {fileID: 7400000, guid: d8543a29c640cfb4b830afe7f97329a0, type: 2}
+  - {fileID: 7400000, guid: 4a591957834a1864185ca5ee57514cfb, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

@@ -7,6 +7,7 @@ public class Fall : MonoBehaviour
     PlayerInteract interact;
     AIInteract aIInteract;
 
+    public Animator animator;
     private void Start()
     {
         interact = PlayerInteract.Ins;
@@ -15,6 +16,7 @@ public class Fall : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        Debug.Log("Collide");
         switch (gameObject.tag)
         {
             case GameConstant.BLUE_TAG:
@@ -40,23 +42,32 @@ public class Fall : MonoBehaviour
         {
             case GameConstant.BLUE_TAG:
                 if (BrickHolder.Count < interact.BrickHolder.Count)
-                    Debug.Log("Fall Blue");
+                {
+                    StartFallAnim();
+                }                   
                 break;
             case GameConstant.RED_TAG:
                 if (BrickHolder.Count < aIInteract.RedBrickHolder.Count)
-                    Debug.Log("Fall Red");
+                    StartFallAnim();
                 break;
             case GameConstant.GREEN_TAG:
                 if (BrickHolder.Count < aIInteract.GreenBrickHolder.Count)
-                    Debug.Log("Fall Green");
+                    StartFallAnim();
                 break;
             case GameConstant.YELLOW_TAG:
                 if (BrickHolder.Count < aIInteract.YellowBrickHolder.Count)
-                    Debug.Log("Fall Yellow");
+                    StartFallAnim();
                 break;
             default:
                 Debug.Log("Error Fall Condition");
                 break;
         }
     }
+
+    public void StartFallAnim()
+    {
+        animator.enabled = false;
+        animator.SetTrigger(GameConstant.FALL_ANIM);
+    }
+
 }

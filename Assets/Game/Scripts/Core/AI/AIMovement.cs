@@ -276,4 +276,9 @@ public class AIMovement : Singleton<AIMovement>
         yellowMax = maxNum;
         currentPoint = Random.Range(yellowMin, yellowMax);
     }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        
+    }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
+    AIInteract aIInteract;
+    PlayerInteract interact;
+
     [SerializeField] 
     protected CharacterController controller;
 
@@ -14,24 +17,35 @@ public class Player : Singleton<Player>
     float turnVelocity, horizontal, vertical;
 
     protected Vector3 direction;
+    private float FallTime;
 
     public Animator MovementAnim;
     public Animation DancingAnim;
 
-    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish;
+    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish, Collided;
 
     private void Start()
     {
         MoveForwardRestrict = MoveBackRestrict = false;
 
         OnFinish = false;
+        Collided = false;
+
+        interact = PlayerInteract.Ins;
+        aIInteract = AIInteract.Ins;
+
     }
 
     private void Update()
     {
-        if (OnFinish == false)
+        if (Collided && Time.time >= FallTime)
+            Collided = false;  
+            
+
+        if (OnFinish == false && Collided == false)
             PlayerMovement();
-        else
+
+        if (OnFinish == true)
             Dancing();
     }
     
@@ -44,7 +58,7 @@ public class Player : Singleton<Player>
         if ((direction - Vector3.zero).sqrMagnitude < 0.001f)
             Idle();
         else 
-            RunAnim();
+            Run();
                
         if (direction.magnitude >= 0.1f)
         {
@@ -89,7 +103,35 @@ public class Player : Singleton<Player>
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    public void RunAnim()
+    private void OnCollisionEnter(Collision other)
+    {
+        if(Collided == false)
+        FallCondition(other.gameObject);
+    }
+
+    public void FallCondition(GameObject other)
+    {
+        switch (other.tag)
+        {
+            case GameConstant.RED_TAG:
+                if (interact.BrickHolder.Count < aIInteract.RedBrickHolder.Count)
+                    Fall();
+                break;
+            case GameConstant.GREEN_TAG:
+                if (interact.BrickHolder.Count < aIInteract.GreenBrickHolder.Count)
+                    Fall();
+                break;
+            case GameConstant.YELLOW_TAG:
+                if (interact.BrickHolder.Count < aIInteract.YellowBrickHolder.Count)
+                    Fall();
+                break;
+            default:
+                Debug.Log("Error Fall Condition");
+                break;
+        }
+    }
+
+    public void Run()
     {
         MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
         MovementAnim.SetTrigger(GameConstant.RUN_ANIM);
@@ -104,5 +146,13 @@ public class Player : Singleton<Player>
     public void Dancing()
     {
         DancingAnim.Play(GameConstant.DANCE_ANIM);
+    }
+
+    public void Fall()
+    {
+        FallTime = Time.time + 5f;
+        MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
+        MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
+        Collided = true;
     }
 }
