@@ -4,14 +4,18 @@ using UnityEngine;
 
 public enum UIStartGame { Open, Close }
 public enum UIVictory { Open, Close }
+
+public enum UIFail { Open, Close }
 public class UIManager : Singleton<UIManager>
 {
     public GameObject uiStartGameCanvas;
     public GameObject InstructionPanel;
     public GameObject uiVictoryPanel;
+    public GameObject uiFailPanel;
 
     private UIStartGame uIStartGame;
     private UIVictory uiVictory;
+    private UIFail uiFail;
     public void ChangeUIStartGame(UIStartGame uIStartGame)
     {
         this.uIStartGame = uIStartGame;
@@ -44,6 +48,25 @@ public class UIManager : Singleton<UIManager>
             
             case UIVictory.Close:
                 uiVictoryPanel.SetActive(false);
+                break;
+            default:
+                Debug.Log("Error UI Victory");
+                break;
+        }
+    }
+
+    public void ChangeUIFail(UIFail uiFail)
+    {
+        this.uiFail = uiFail;
+
+        switch (uiFail)
+        {
+            case UIFail.Open:
+                uiFailPanel.SetActive(true);
+                break;
+
+            case UIFail.Close:
+                uiFailPanel.SetActive(false);
                 break;
             default:
                 Debug.Log("Error UI Victory");

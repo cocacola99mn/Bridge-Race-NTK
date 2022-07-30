@@ -56,12 +56,9 @@ public class AIMovement : Singleton<AIMovement>
     }
 
     private void FixedUpdate()
-    {
-        
-        
+    {       
         if (Collided && Time.time >= FallTime)
         {
-            AICollider.enabled = true;
             Collided = false;
         }                
 
@@ -359,8 +356,6 @@ public class AIMovement : Singleton<AIMovement>
         MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
         
         aIInteract.OnFall(tag);
-        
-        AICollider.enabled = false;
         
         Collided = true;
     }

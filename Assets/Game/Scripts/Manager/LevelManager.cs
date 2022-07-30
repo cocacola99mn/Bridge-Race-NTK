@@ -25,7 +25,7 @@ public class LevelManager : Singleton<LevelManager>
                 break;
             
             case LevelState.Lose:
-                Debug.Log("Lose");
+                UIManager.Ins.ChangeUIFail(UIFail.Open);
                 break;
             
             default:
