@@ -1124,6 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIBody: {fileID: 5690678851591635217}
   AICollider: {fileID: 4397327352356824390}
+  AIRigidbody: {fileID: 4397327352356824395}
   AIBridgeNav:
     serializedVersion: 2
     m_Bits: 64
@@ -1196,9 +1197,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.05
-  m_Height: 0.50742495
+  m_Height: 0.50982904
   m_Direction: 1
-  m_Center: {x: 0, y: 0.24628761, z: 0}
+  m_Center: {x: 0, y: 0.24508557, z: 0}
 --- !u!114 &4397327352356824394
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,14 +19,13 @@ public class AIBridgeRaycast : MonoBehaviour
     [SerializeField]
     private LayerMask bridgeStairLayer;
 
-    Vector3 ForwardDirection, DropBrickDirection, RayPosition;
+    Vector3 DropBrickDirection, RayPosition;
 
     AIInteract aIInteract;
 
     void Start()
     {
         DropBrickDirection = Quaternion.Euler(-50, 0, 0) * Vector3.down * range;
-        ForwardDirection = Vector3.forward * range;
 
         aIInteract = AIInteract.Ins;
     }

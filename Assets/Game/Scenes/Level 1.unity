@@ -2490,7 +2490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2069925132640651642, guid: 49185367e94ec4e418a29c2026c7519d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.379
+      value: 10.23
       objectReference: {fileID: 0}
     - target: {fileID: 2069925132640651642, guid: 49185367e94ec4e418a29c2026c7519d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3112,14 +3112,6 @@ PrefabInstance:
       propertyPath: YellowHolder
       value: 
       objectReference: {fileID: 581548252}
-    - target: {fileID: 4397327352356824390, guid: 920b78001ca674d45a9832286b5d8372, type: 3}
-      propertyPath: m_Height
-      value: 0.50982904
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397327352356824390, guid: 920b78001ca674d45a9832286b5d8372, type: 3}
-      propertyPath: m_Center.y
-      value: 0.24508557
-      objectReference: {fileID: 0}
     - target: {fileID: 4397327352356824394, guid: 920b78001ca674d45a9832286b5d8372, type: 3}
       propertyPath: RedAI
       value: 
@@ -12221,14 +12213,6 @@ PrefabInstance:
       propertyPath: YellowAI
       value: 
       objectReference: {fileID: 1772897167}
-    - target: {fileID: 478756521, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-      propertyPath: m_Height
-      value: 0.5169246
-      objectReference: {fileID: 0}
-    - target: {fileID: 478756521, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
-      propertyPath: m_Center.y
-      value: 0.2415378
-      objectReference: {fileID: 0}
     - target: {fileID: 478756522, guid: cd8ddf2ddc9bce4418e552efdbc1ec2b, type: 3}
       propertyPath: GreenHolder
       value: 
@@ -22944,14 +22928,6 @@ PrefabInstance:
       propertyPath: GreenAI
       value: 
       objectReference: {fileID: 1874941196}
-    - target: {fileID: 478756521, guid: 7f1d55034af849144bb0e969785c3f33, type: 3}
-      propertyPath: m_Height
-      value: 0.50529224
-      objectReference: {fileID: 0}
-    - target: {fileID: 478756521, guid: 7f1d55034af849144bb0e969785c3f33, type: 3}
-      propertyPath: m_Center.y
-      value: 0.24735397
-      objectReference: {fileID: 0}
     - target: {fileID: 478756522, guid: 7f1d55034af849144bb0e969785c3f33, type: 3}
       propertyPath: RedHolder
       value: 

@@ -6,6 +6,7 @@ public class AIMovement : Singleton<AIMovement>
 {
     public GameObject AIBody;
     public Collider AICollider;
+    public Rigidbody AIRigidbody;
 
     private float range = 10f;
 
@@ -25,7 +26,8 @@ public class AIMovement : Singleton<AIMovement>
 
     public bool redReachLimit, greenReachLimit, yellowReachLimit, Collided, IsOnBridge;
 
-    private float FallTime;
+    private float FallTime = 5f;
+    private float FallRealTime;
 
     public void Start()
     {
@@ -57,9 +59,11 @@ public class AIMovement : Singleton<AIMovement>
 
     private void FixedUpdate()
     {       
-        if (Collided && Time.time >= FallTime)
+        if (Collided && Time.time >= FallRealTime)
         {
             Collided = false;
+            AICollider.enabled = true;
+            AIRigidbody.useGravity = true;
         }                
 
         AIBodyPos = AIBody.transform.position;
@@ -93,7 +97,7 @@ public class AIMovement : Singleton<AIMovement>
     {
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnTime);
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
     }
 
     public void AIComeBridge(List<GameObject> BrickHolder)
@@ -350,13 +354,15 @@ public class AIMovement : Singleton<AIMovement>
 
     public void Fall(string tag)
     {
-        FallTime = Time.time + 5f;
+        FallRealTime = Time.time + FallTime;
         
         MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
         MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
         
         aIInteract.OnFall(tag);
-        
+        AICollider.enabled = false;
+        AIRigidbody.useGravity = false;
+
         Collided = true;
     }
 
@@ -375,7 +381,6 @@ public class AIMovement : Singleton<AIMovement>
         {
             AICollider.enabled = true;
             IsOnBridge = false;
-        }
-            
+        }            
     }
 }
