@@ -6,12 +6,6 @@ public class BrickAdd : AIAction
 {
     [SerializeField]
     private AllColor brickColor;
-    private AIInteract aIInteract;
-
-    private void Start()
-    {
-        aIInteract = AIInteract.Ins;     
-    }
 
     private void OnTriggerEnter(Collider other)
     {

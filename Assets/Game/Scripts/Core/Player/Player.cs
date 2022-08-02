@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    AIInteract aIInteract;
     PlayerInteract interact;
 
     [SerializeField] 
@@ -32,8 +31,6 @@ public class Player : Singleton<Player>
         fall = false;
 
         interact = PlayerInteract.Ins;
-        aIInteract = AIInteract.Ins;
-
     }
 
     private void FixedUpdate()

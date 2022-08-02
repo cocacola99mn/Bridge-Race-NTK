@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum UIStartGame { Open, Close }
+
 public enum UIVictory { Open, Close }
 
 public enum UIFail { Open, Close }
