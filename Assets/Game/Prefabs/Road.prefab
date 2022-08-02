@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6926607311584554474}
   - component: {fileID: 6033512541871598586}
   - component: {fileID: 3673893780364169404}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2126057467746585001}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2166374831392693442}
   - component: {fileID: 9054072508188650675}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

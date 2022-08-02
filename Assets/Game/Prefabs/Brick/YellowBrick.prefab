@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7151450832521808959}
   m_Layer: 0
   m_Name: YellowBrick
-  m_TagString: Untagged
+  m_TagString: Yellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19570765, y: 0.44398957, z: 0.10617101}
-  m_Center: {x: -0.00021724403, y: 0.16835666, z: -0.00054597855}
+  m_Size: {x: 0.19570765, y: 0.08905259, z: 0.10617101}
+  m_Center: {x: -0.00021724403, y: -0.009111837, z: -0.00054597855}
 --- !u!114 &7151450832521808959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +58,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038208805fe11234abede2c158d98c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BrickHolder: []
+  GridBrickPos: []
+  Holder: {fileID: 0}
+  height: 0.07
+  holderPos: {x: 0, y: 0, z: 0}
   brickColor: {fileID: 11400000, guid: f66fd06f37a9bea429644c3750f4c972, type: 2}
 --- !u!1 &5426616457864182586
 GameObject:

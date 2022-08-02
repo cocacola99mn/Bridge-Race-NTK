@@ -12,7 +12,7 @@ public class Player : Singleton<Player>
 
     public float PlayerSpeed;
 
-    public float turnTime = 0.1f;
+    public float turnTime = 0.2f;
 
     float turnVelocity, horizontal, vertical;
 
@@ -22,14 +22,14 @@ public class Player : Singleton<Player>
     public Animator MovementAnim;
     public Animation DancingAnim;
 
-    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish, Collided, IsOnBridge;
+    public bool MoveForwardRestrict,MoveBackRestrict,OnFinish, fall, IsOnBridge;
 
     private void Start()
     {
         MoveForwardRestrict = MoveBackRestrict = false;
 
         OnFinish = false;
-        Collided = false;
+        fall = false;
 
         interact = PlayerInteract.Ins;
         aIInteract = AIInteract.Ins;
@@ -38,15 +38,13 @@ public class Player : Singleton<Player>
 
     private void FixedUpdate()
     {
-        if (Collided && Time.time >= FallTime)
+        if (fall && Time.time >= FallTime)
         {
             controller.enabled = true;
-            Collided = false;
-        }
-              
-            
+            fall = false;
+        }           
 
-        if (OnFinish == false && Collided == false)
+        if (OnFinish == false && fall == false)
             PlayerMovement();
 
         if (OnFinish == true)
@@ -109,30 +107,22 @@ public class Player : Singleton<Player>
 
     private void OnCollisionEnter(Collision other)
     {
-        if(Collided == false && IsOnBridge == false)
-            FallCondition(other.gameObject);
+        try
+        {
+            int otherCounter = other.gameObject.GetComponent<AIAction>().BrickHolder.Count;
+            if (fall == false)
+                FallCondition(otherCounter);
+        }
+        catch
+        {
+            Debug.Log("Can't find");
+        }
     }
 
-    public void FallCondition(GameObject other)
+    public void FallCondition(int otherCounter)
     {
-        switch (other.tag)
-        {
-            case GameConstant.RED_TAG:
-                if (interact.BrickHolder.Count < aIInteract.RedBrickHolder.Count)
-                    Fall();
-                break;
-            case GameConstant.GREEN_TAG:
-                if (interact.BrickHolder.Count < aIInteract.GreenBrickHolder.Count)
-                    Fall();
-                break;
-            case GameConstant.YELLOW_TAG:
-                if (interact.BrickHolder.Count < aIInteract.YellowBrickHolder.Count)
-                    Fall();
-                break;
-            default:
-                Debug.Log("Error Fall Condition");
-                break;
-        }
+        if (interact.BrickHolder.Count < otherCounter)
+            Fall();
     }
 
     public void Run()
@@ -159,6 +149,6 @@ public class Player : Singleton<Player>
         MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
         MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
         controller.enabled = false;
-        Collided = true;        
+        fall = true;        
     }
 }
