@@ -985,7 +985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4771620508876183653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.086, z: -0.197}
+  m_LocalPosition: {x: 0, y: 0.08, z: -0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5022229294869568427}
@@ -1064,13 +1064,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5022229294869568427}
-  - component: {fileID: 7799167389567127333}
-  - component: {fileID: 4480555246095661214}
   - component: {fileID: 4397327351930525282}
   - component: {fileID: 4397327352356824395}
   - component: {fileID: 4397327352356824390}
-  - component: {fileID: 4397327352356824394}
-  - component: {fileID: 4397327352356824389}
+  - component: {fileID: 1874941198}
+  - component: {fileID: 1874941203}
   m_Layer: 0
   m_Name: Green Player
   m_TagString: Green
@@ -1095,62 +1093,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7799167389567127333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690678851591635217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f058e0ddb323548b44461092829a66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RedTarget: []
-  GreenTarget: []
-  YellowTarget: []
---- !u!114 &4480555246095661214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690678851591635217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c348d6f6e69e834e91e69d2690da913, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIBody: {fileID: 5690678851591635217}
-  AICollider: {fileID: 4397327352356824390}
-  AIRigidbody: {fileID: 4397327352356824395}
-  AIBridgeNav:
-    serializedVersion: 2
-    m_Bits: 64
-  roadLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  AIBodyPos: {x: 0, y: 0, z: 0}
-  ForwardDirection: {x: 0, y: 0, z: 0}
-  OnRoadRay: {x: 0, y: 0, z: 0}
-  currentPoint: 0
-  redMin: 0
-  redMax: 0
-  greenMin: 0
-  greenMax: 0
-  yellowMin: 0
-  yellowMax: 0
-  AISpeed: 1.5
-  TPRadius: 0
-  turnVelocity: 0
-  turnTime: 0
-  MovementAnim: {fileID: 4397327351930525282}
-  redReachLimit: 0
-  greenReachLimit: 0
-  yellowReachLimit: 0
-  Collided: 0
-  IsOnBridge: 0
 --- !u!95 &4397327351930525282
 Animator:
   serializedVersion: 3
@@ -1197,10 +1139,10 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.05
-  m_Height: 0.50982904
+  m_Height: 0.51704186
   m_Direction: 1
-  m_Center: {x: 0, y: 0.24508557, z: 0}
---- !u!114 &4397327352356824394
+  m_Center: {x: 0, y: 0.24147916, z: 0}
+--- !u!114 &1874941198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1209,43 +1151,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 5690678851591635217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe82a392380976d479ec87a2395f69f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 17d48e78369f99043948b2e6fe7c0ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedAI: {fileID: 0}
-  GreenAI: {fileID: 5690678851591635217}
-  YellowAI: {fileID: 0}
+  aIAction: {fileID: 1874941203}
+  AIBridgeNav:
+    serializedVersion: 2
+    m_Bits: 64
+  stairLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  MovementAnim: {fileID: 4397327351930525282}
   AICollider: {fileID: 4397327352356824390}
   AIRigidbody: {fileID: 4397327352356824395}
-  BrickMaterial: {fileID: 2100000, guid: f4901e013bbc3354c9a366c9a0e84ba0, type: 2}
+  currentPoint: 0
+  minPoint: 0
+  maxPoint: 0
+  TPRadius: 0
+  AISpeed: 0
+  turnVelocity: 0
+  turnTime: 0
+  range: 0
+  FallTime: 0
+  FallRealTime: 0
+  reachLimit: 0
+  IsOnBridge: 0
+  fall: 0
+--- !u!114 &1874941203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690678851591635217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f678059b2476524499fb69d5f66c9526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   bridgeStairLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &4397327352356824389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690678851591635217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebd78fc1b8a07d4f848e6757f738462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RedBrickHolder: []
-  YellowBrickHolder: []
-  GreenBrickHolder: []
-  RedGridBrickPos: []
-  YellowGridBrickPos: []
-  GreenGridBrickPos: []
-  RedHolder: {fileID: 0}
-  YellowHolder: {fileID: 0}
-  GreenHolder: {fileID: 4771620508876183653}
+  Holder: {fileID: 4771620508876183653}
+  BrickMaterial: {fileID: 2100000, guid: f4901e013bbc3354c9a366c9a0e84ba0, type: 2}
   height: 0.07
-  RedholderPos: {x: 0, y: 0, z: 0}
-  GreenholderPos: {x: 0, y: 0, z: 0}
-  YellowholderPos: {x: 0, y: 0, z: 0}
+  range: 10
+  holderPos: {x: 0, y: 0, z: 0}
+  RayPosition: {x: 0, y: 0, z: 0}
+  DropBrickDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &5695342257060565321
 GameObject:
   m_ObjectHideFlags: 0

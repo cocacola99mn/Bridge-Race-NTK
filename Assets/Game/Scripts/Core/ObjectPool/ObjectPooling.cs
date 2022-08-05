@@ -24,6 +24,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
     public Dictionary<string, int> SpawnedCounter;
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
+    
     void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -79,6 +80,11 @@ public class ObjectPooling : Singleton<ObjectPooling>
         poolDictionary[tag].Enqueue(prefab);
 
         SpawnedCounterControl(tag, -1);
+    }
+
+    public void DespawnAll()
+    {
+        poolDictionary.Clear();
     }
 
     public void SpawnedCounterControl(string tag, int num)

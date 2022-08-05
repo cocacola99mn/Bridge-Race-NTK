@@ -24,11 +24,13 @@ public class UIManager : Singleton<UIManager>
         {
             case UIStartGame.Open:
                 uiStartGameCanvas.SetActive(true);
+                Time.timeScale = 0;
                 break;
             
             case UIStartGame.Close:
                 uiStartGameCanvas.SetActive(false);
                 InstructionPanel.SetActive(true);
+                Time.timeScale = 1;
                 break;
             
             default:
