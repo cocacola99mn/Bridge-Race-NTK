@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [SerializeField] Transform target, Camera;
     float deltaZ;
 
     void Start()
@@ -12,8 +12,8 @@ public class CameraFollow : MonoBehaviour
         deltaZ = transform.position.z - target.position.z;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        transform.position = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z + deltaZ);
+        Camera.position = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z + deltaZ);
     }
 }

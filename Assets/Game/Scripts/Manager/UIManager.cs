@@ -1,79 +1,136 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using System.Numerics;
 
-public enum UIStartGame { Open, Close }
+public enum UIID
+{
+    UICInstructionPanel = 0,
+    UICMainMenu = 1,
+    UICFail = 2,
+    UICVictory = 3
+}
 
-public enum UIVictory { Open, Close }
-
-public enum UIFail { Open, Close }
 public class UIManager : Singleton<UIManager>
 {
-    public GameObject uiStartGameCanvas;
-    public GameObject InstructionPanel;
-    public GameObject uiVictoryPanel;
-    public GameObject uiFailPanel;
 
-    private UIStartGame uIStartGame;
-    private UIVictory uiVictory;
-    private UIFail uiFail;
-    public void ChangeUIStartGame(UIStartGame uIStartGame)
+    private Dictionary<UIID, UICanvas> UICanvas = new Dictionary<UIID, UICanvas>();
+
+    public Transform CanvasParentTF;
+
+    #region Canvas
+
+    public bool IsOpenedUI(UIID ID)
     {
-        this.uIStartGame = uIStartGame;
-        switch (uIStartGame)
+        return UICanvas.ContainsKey(ID) && UICanvas[ID] != null && UICanvas[ID].gameObject.activeInHierarchy;
+    }
+
+    public UICanvas GetUI(UIID ID)
+    {
+        if (!UICanvas.ContainsKey(ID) || UICanvas[ID] == null)
         {
-            case UIStartGame.Open:
-                uiStartGameCanvas.SetActive(true);
-                Time.timeScale = 0;
-                break;
+            Debug.Log("UI/" + ID.ToString());
+            UICanvas canvas = Instantiate(Resources.Load<UICanvas>("UI/" + ID.ToString()), CanvasParentTF);
             
-            case UIStartGame.Close:
-                uiStartGameCanvas.SetActive(false);
-                InstructionPanel.SetActive(true);
-                Time.timeScale = 1;
-                break;
-            
-            default:
-                Debug.Log("Error UI StartGame");
-                break;
+            UICanvas[ID] = canvas;
+        }
+
+        return UICanvas[ID];
+    }
+
+    public T GetUI<T>(UIID ID) where T : UICanvas
+    {
+        return GetUI(ID) as T;
+    }
+
+    public UICanvas OpenUI(UIID ID)
+    {
+        UICanvas canvas = GetUI(ID);
+
+        canvas.Setup();
+        canvas.Open();
+
+        return canvas;
+    }
+
+    public T OpenUI<T>(UIID ID) where T : UICanvas
+    {
+        return OpenUI(ID) as T;
+    }
+
+    public bool IsOpened(UIID ID)
+    {
+        return UICanvas.ContainsKey(ID) && UICanvas[ID] != null;
+    }
+
+    #endregion
+
+    #region Back Button
+
+    private Dictionary<UICanvas, UnityAction> BackActionEvents = new Dictionary<UICanvas, UnityAction>();
+    private List<UICanvas> backCanvas = new List<UICanvas>();
+    UICanvas BackTopUI
+    {
+        get
+        {
+            UICanvas canvas = null;
+            if (backCanvas.Count > 0)
+            {
+                canvas = backCanvas[backCanvas.Count - 1];
+            }
+
+            return canvas;
         }
     }
 
-    public void ChangeUIVictory(UIVictory uiVictory)
-    {
-        this.uiVictory = uiVictory;
 
-        switch (uiVictory)
+    private void LateUpdate()
+    {
+        if (Input.GetKey(KeyCode.Escape) && BackTopUI != null)
         {
-            case UIVictory.Open:
-                uiVictoryPanel.SetActive(true);
-                break;
-            
-            case UIVictory.Close:
-                uiVictoryPanel.SetActive(false);
-                break;
-            default:
-                Debug.Log("Error UI Victory");
-                break;
+            BackActionEvents[BackTopUI]?.Invoke();
         }
     }
 
-    public void ChangeUIFail(UIFail uiFail)
+    public void PushBackAction(UICanvas canvas, UnityAction action)
     {
-        this.uiFail = uiFail;
-
-        switch (uiFail)
+        if (!BackActionEvents.ContainsKey(canvas))
         {
-            case UIFail.Open:
-                uiFailPanel.SetActive(true);
-                break;
-
-            case UIFail.Close:
-                uiFailPanel.SetActive(false);
-                break;
-            default:
-                Debug.Log("Error UI Victory");
-                break;
+            BackActionEvents.Add(canvas, action);
         }
     }
+
+    public void AddBackUI(UICanvas canvas)
+    {
+        if (!backCanvas.Contains(canvas))
+        {
+            backCanvas.Add(canvas);
+        }
+    }
+
+    public void RemoveBackUI(UICanvas canvas)
+    {
+        backCanvas.Remove(canvas);
+    }
+
+    /// <summary>
+    /// CLear backey when comeback index UI canvas
+    /// </summary>
+    public void ClearBackKey()
+    {
+        backCanvas.Clear();
+    }
+
+    #endregion
+
+    public void CloseUI(UIID ID)
+    {
+        if (IsOpened(ID))
+        {
+            GetUI(ID).Close();
+        }
+    }
+
 }

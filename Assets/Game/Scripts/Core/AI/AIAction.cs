@@ -8,7 +8,9 @@ public class AIAction : MonoBehaviour
     private LayerMask bridgeStairLayer;
     
     public GameObject Holder;
+    
     Renderer selectChildRenderer;
+
     Transform select;
 
     [SerializeField]
@@ -45,20 +47,20 @@ public class AIAction : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(gameObject.tag))
-            AddBrick(other.gameObject);
+            AddBrick(other.transform);
     }
 
-    public void AddBrick(GameObject Brick)
+    public void AddBrick(Transform Brick)
     {
-        GridBrickPos.Push(Brick.transform.localPosition);
+        GridBrickPos.Push(Brick.localPosition);
 
-        Brick.transform.SetParent(Holder.transform);
+        Brick.SetParent(Holder.transform);
 
         holderPos.y += height;
-        Brick.transform.localPosition = holderPos;
-        Brick.transform.localEulerAngles = holderPos;
+        Brick.localPosition = holderPos;
+        Brick.localEulerAngles = holderPos;
 
-        BrickHolder.Push(Brick);
+        BrickHolder.Push(Brick.gameObject);
     }
 
     public void DropBrick(string tag)
@@ -98,7 +100,7 @@ public class AIAction : MonoBehaviour
                 }
                 catch
                 {
-                    Debug.Log("Can't find component");
+                    Debug.Log("None");
                 }
             }
 

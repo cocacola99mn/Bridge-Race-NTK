@@ -9,6 +9,7 @@ public class Player : Singleton<Player>
     [SerializeField] 
     protected CharacterController controller;
 
+    public Joystick joystick;
     public float PlayerSpeed;
 
     public float turnTime = 0.2f;
@@ -35,12 +36,8 @@ public class Player : Singleton<Player>
 
     private void FixedUpdate()
     {
-        if (fall && Time.time >= FallTime)
-        {
-            controller.enabled = true;
-            fall = false;
-        }           
-
+        FallAnimTime();
+        
         if (OnFinish == false && fall == false)
             PlayerMovement();
 
@@ -68,8 +65,8 @@ public class Player : Singleton<Player>
 
     public void JoyStickInput()
     {
-        horizontal = JoystickInput.Ins.inputHorizontal();
-        vertical = JoystickInput.Ins.inputVertical();
+        horizontal = joystick.Horizontal;
+        vertical = joystick.Vertical;
         
         direction = new Vector3(horizontal, 0, vertical).normalized;
         
@@ -122,6 +119,25 @@ public class Player : Singleton<Player>
             Fall();
     }
 
+    public void Fall()
+    {
+        FallTime = Time.time + 5f;
+        interact.OnFall(GameConstant.BLUE_TAG);
+        MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
+        MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
+        controller.enabled = false;
+        fall = true;        
+    }
+
+    public void FallAnimTime()
+    {
+        if (fall && Time.time >= FallTime)
+        {
+            controller.enabled = true;
+            fall = false;
+        }
+    }
+
     public void Run()
     {
         MovementAnim.ResetTrigger(GameConstant.IDLE_ANIM);
@@ -137,15 +153,5 @@ public class Player : Singleton<Player>
     public void Dancing()
     {
         DancingAnim.Play(GameConstant.DANCE_ANIM);
-    }
-
-    public void Fall()
-    {
-        FallTime = Time.time + 5f;
-        interact.OnFall(GameConstant.BLUE_TAG);
-        MovementAnim.SetTrigger(GameConstant.FALL_ANIM);
-        MovementAnim.SetTrigger(GameConstant.KIPUP_ANIM);
-        controller.enabled = false;
-        fall = true;        
     }
 }

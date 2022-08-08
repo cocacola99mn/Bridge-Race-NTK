@@ -103,8 +103,10 @@ public class GridBase : MonoBehaviour
                     randomSpawnCondition(GameConstant.RED_TAG, spawnPosition, limit);
             }
             else
+            {
                 objPool.Spawn(GameConstant.YELLOW_TAG, spawnPosition, Quaternion.identity);
                 AITargetPoint.Ins.getTargetPointByColor(GameConstant.YELLOW_TAG, spawnPosition);
+            }               
         }
     }
 

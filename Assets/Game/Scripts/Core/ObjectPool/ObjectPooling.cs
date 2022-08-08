@@ -72,7 +72,7 @@ public class ObjectPooling : Singleton<ObjectPooling>
     {
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log("Error");
+            Debug.Log("None");
         }
         
         prefab.SetActive(false);

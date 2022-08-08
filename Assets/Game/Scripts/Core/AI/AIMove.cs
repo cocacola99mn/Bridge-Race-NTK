@@ -29,7 +29,7 @@ public class AIMove : MonoBehaviour
 
         AISpeed = 1.5f;
         TPRadius = 0.1f;
-        turnTime = 0.2f;
+        turnTime = 0.1f;
         range = 10;
         FallTime = 5;
 
@@ -47,17 +47,11 @@ public class AIMove : MonoBehaviour
 
     void Update()
     {
-        if (fall && Time.time >= FallRealTime)
-        {
-            fall = false;
-            AICollider.enabled = true;
-            AIRigidbody.constraints = RigidbodyConstraints.None;
-        }
-
         if (Time.timeScale > 0)
-            MovementAnim.enabled = true;
-
+            MovementAnim.enabled = true;              
+        
         RayPosition = transform.position;
+        FallAnimTime();
         SetTarget();
         ReleaseRay();
         ShootOnStairRay();
@@ -228,6 +222,16 @@ public class AIMove : MonoBehaviour
         AIRigidbody.constraints = RigidbodyConstraints.FreezeAll;
 
         fall = true;
+    }
+
+    public void FallAnimTime()
+    {
+        if (fall && Time.time >= FallRealTime)
+        {
+            fall = false;
+            AICollider.enabled = true;
+            AIRigidbody.constraints = RigidbodyConstraints.None;
+        }
     }
 
     protected void RunAnim()

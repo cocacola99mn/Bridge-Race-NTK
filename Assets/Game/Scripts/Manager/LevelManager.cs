@@ -25,7 +25,7 @@ public class LevelManager : Singleton<LevelManager>
                 break;
             
             case LevelState.Lose:
-                UIManager.Ins.ChangeUIFail(UIFail.Open);
+                UIManager.Ins.OpenUI(UIID.UICFail);
                 break;
             
             default:
@@ -55,7 +55,6 @@ public class LevelManager : Singleton<LevelManager>
 
         RedAI.SetActive(true);
         GreenAI.SetActive(true);
-
-        UIManager.Ins.ChangeUIVictory(UIVictory.Open);
+        UIManager.Ins.OpenUI(UIID.UICVictory);
     }
 }
